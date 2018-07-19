@@ -7,6 +7,12 @@ This project is the manager of books. I used the MySQL database and JDBC.
 | Technology     | Badge |
 |:--------------:|:-----:|
 | License        | [![LICENSE](https://img.shields.io/badge/LICENSE-Apache%202.0-blue.svg)](LICENSE) |
+| Travis CI      | [![Build Status](https://travis-ci.org/qThegamEp/BookManager.svg?branch=master)](https://travis-ci.org/qThegamEp/BookManager) |
+| AppVeyor CI    | [![Build status](https://ci.appveyor.com/api/projects/status/kqktu8egoaxf36hc?svg=true)](https://ci.appveyor.com/project/qThegamEp/bookmanager) |
+| Codecov        | [![codecov](https://codecov.io/gh/qThegamEp/BookManager/branch/master/graph/badge.svg)](https://codecov.io/gh/qThegamEp/BookManager) |
+| Scrutinizer CI | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/qThegamEp/BookManager/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/qThegamEp/BookManager/?branch=master) |
+| Codacy         | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f8c8ec3ea86f4c33bd9ffb2100fcae4d)](https://www.codacy.com/app/qThegamEp/BookManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=qThegamEp/BookManager&amp;utm_campaign=Badge_Grade) |
+| Gitter         | [![Gitter](https://badges.gitter.im/qThegamEp/PatternProject.svg)](https://gitter.im/qThegamEp/PatternProject?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) |
 
 ## Import Information
 If you want to use this project:
