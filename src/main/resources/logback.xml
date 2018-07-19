@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <!-- Path to data logs -->
+    <property name="LOG_PATH" value="${user.dir}/log/application"/>
+
+    <!-- Name of logs files -->
+    <property name="LOG_NAME" value="application.log"/>
+
+    <!-- Pattern name of logs files -->
+    <property name="LOG_PATTERN_NAME" value="application.%d{yyyy-MM-dd}.%i.log"/>
+
+    <!-- Root logback log to file -->
+    <!-- Rolling file appender -->
+    <appender name="ROOT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_NAME}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date %level [%thread] %logger{100}.%method.%line - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- This log file will be archived daily or the file size is larger than 10MB -->
+            <fileNamePattern>${LOG_PATH}/archived/${LOG_PATTERN_NAME}</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Root logger -->
+    <root level="info">
+        <appender-ref ref="ROOT_FILE"/>
+    </root>
+</configuration>
