@@ -1,5 +1,7 @@
 # BookManager
 
+[![Join the chat at https://gitter.im/qThegamEp/BookManager](https://badges.gitter.im/qThegamEp/BookManager.svg)](https://gitter.im/qThegamEp/BookManager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Project Information
 This project is the manager of books. I used the MySQL database and JDBC.
 
