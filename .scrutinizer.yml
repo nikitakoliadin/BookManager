@@ -5,3 +5,4 @@ checks:
 filter:
   paths:
     - src/main/java/
+    - src/test/java/
