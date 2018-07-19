@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <!-- Path to data test-logs -->
+    <property name="LOG_PATH" value="${user.dir}/log/test"/>
+
+    <!-- Root logger properties -->
+    <!-- Name of application test logs files -->
+    <property name="LOG_NAME_OF_TEST_OF_APPLICATION" value="test_of_application.log"/>
+
+    <!-- Pattern name of application test logs files -->
+    <property name="LOG_PATTERN_NAME_OF_TEST_OF_APPLICATION" value="test_of_application.%d{yyyy-MM-dd}.%i.log"/>
+
+    <!-- Test results logger properties -->
+    <!-- Name of test results files -->
+    <property name="LOG_NAME_OF_TEST_RESULTS" value="test_results.log"/>
+
+    <!-- Pattern name of test results files -->
+    <property name="LOG_PATTERN_NAME_OF_TEST_RESULTS" value="test_results.%d{yyyy-MM-dd}.%i.log"/>
+
+    <!-- Root logback application test log to file -->
+    <!-- Rolling file appender -->
+    <appender name="ROOT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_NAME_OF_TEST_OF_APPLICATION}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date %level [%thread] %logger{100}.%method.%line - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- This log file will be archived daily or the file size is larger than 10MB -->
+            <fileNamePattern>${LOG_PATH}/archived/${LOG_PATTERN_NAME_OF_TEST_OF_APPLICATION}</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Logback test results log to console and to file -->
+    <!-- Rolling file appender -->
+    <appender name="LOG_RESULTS_OF_TEST_TO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_NAME_OF_TEST_RESULTS}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date%n%msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- This log file will be archived daily or the file size is larger than 10MB -->
+            <fileNamePattern>${LOG_PATH}/archived/${LOG_PATTERN_NAME_OF_TEST_RESULTS}</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+    </appender>
+    <!-- Console appender -->
+    <appender name="LOG_RESULTS_OF_TEST_TO_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date%n%yellow(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger -->
+    <root level="info">
+        <appender-ref ref="ROOT_FILE"/>
+    </root>
+
+    <!-- Test results logger -->
+    <logger name="TEST_RESULT_LOGGER" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="LOG_RESULTS_OF_TEST_TO_FILE"/>
+        <appender-ref ref="LOG_RESULTS_OF_TEST_TO_CONSOLE"/>
+    </logger>
+</configuration>
