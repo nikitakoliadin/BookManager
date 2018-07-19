@@ -17,5 +17,7 @@ public class Application {
         log.info("Preparing the application to start");
 
         System.out.println("Realization is empty!");
+
+        log.info("Preparing the application to start was done successful");
     }
 }
