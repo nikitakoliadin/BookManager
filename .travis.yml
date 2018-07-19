@@ -1,0 +1,30 @@
+# Travis CI Config - https://docs.travis-ci.com/user/languages/java/
+language: java
+
+# Improve Build Speed - https://dzone.com/articles/travis-ci-tutorial-java-projects
+cache:
+  directories:
+  - $HOME/.m2
+
+# Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
+matrix:
+  fast_finish: true
+  include:
+    - jdk: oraclejdk10
+      env:
+        - DESC="All build with oraclejdk10"
+    - jdk: openjdk10
+      env:
+        - DESC="All build with openjdk10"
+
+# Codecov - https://github.com/codecov/example-java
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+# Notifications - https://docs.travis-ci.com/user/notifications/
+notifications:
+  email:
+    recipients:
+      - qThegamEp@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
