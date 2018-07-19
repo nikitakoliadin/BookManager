@@ -7,6 +7,240 @@
     <groupId>com.qthegamep</groupId>
     <artifactId>bookmanager</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
+    <url>http://maven.apache.org</url>
 
+    <properties>
+        <!-- Java -->
+        <java.version>1.10</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Compiler plugin -->
+        <compilerPlugin.version>3.7.0</compilerPlugin.version>
+
+        <!-- Assembly plugin -->
+        <assemblyPlugin.version>3.1.0</assemblyPlugin.version>
+        <assemblyPlugin.finalName>BookManager</assemblyPlugin.finalName>
+        <assemblyPlugin.mainClass>com.qthegamep.bookmanager.Application</assemblyPlugin.mainClass>
+        <assemblyPlugin.appendAssemblyId>false</assemblyPlugin.appendAssemblyId>
+
+        <!-- JaCoCo plugin -->
+        <jacocoPlugin.version>0.8.1</jacocoPlugin.version>
+
+        <!-- Pitest plugin -->
+        <pitestPlugin.version>1.4.0</pitestPlugin.version>
+        <pitestPlugin.verbose>true</pitestPlugin.verbose>
+        <pitestPlugin.threads>2</pitestPlugin.threads>
+        <pitestPlugin.timeoutConstant>60000</pitestPlugin.timeoutConstant>
+
+        <!-- Versions plugin -->
+        <versionsPlugin.version>2.5</versionsPlugin.version>
+        <versionsPlugin.generateBackupPoms>false</versionsPlugin.generateBackupPoms>
+
+        <!-- JetBrains -->
+        <jetbrains.version>16.0.2</jetbrains.version>
+
+        <!-- Lombok -->
+        <projectlombok.version>1.18.0</projectlombok.version>
+
+        <!-- JUnit -->
+        <junit.version>4.12</junit.version>
+
+        <!-- AssertJ -->
+        <assertj.version>3.10.0</assertj.version>
+
+        <!-- Mockito -->
+        <mockito.version>2.19.1</mockito.version>
+
+        <!-- SLF4J -->
+        <slf4j.version>1.7.25</slf4j.version>
+
+        <!-- Logback -->
+        <logback.version>1.2.3</logback.version>
+
+        <!-- MySQL JDBC -->
+        <mysql.jdbc.version>8.0.11</mysql.jdbc.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- Compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compilerPlugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Assembly plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${assemblyPlugin.version}</version>
+                <configuration>
+                    <finalName>${assemblyPlugin.finalName}</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>${assemblyPlugin.mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>${assemblyPlugin.appendAssemblyId}</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- JaCoCo plugin -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacocoPlugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Pitest plugin -->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>${pitestPlugin.version}</version>
+                <configuration>
+                    <verbose>${pitestPlugin.verbose}</verbose>
+                    <threads>${pitestPlugin.threads}</threads>
+                    <timeoutConstant>${pitestPlugin.timeoutConstant}</timeoutConstant>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pitest</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Versions plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versionsPlugin.version}</version>
+                <configuration>
+                    <generateBackupPoms>${versionsPlugin.generateBackupPoms}</generateBackupPoms>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- Annotations -->
+        <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jetbrains.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${projectlombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Test -->
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Log -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Database -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.jdbc.version}</version>
+        </dependency>
+    </dependencies>
 </project>
