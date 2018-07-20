@@ -3,12 +3,18 @@
 ## Project Information
 This project is the manager of books. I used the MySQL database and JDBC.
 In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations:
-- Create;
-- Read;
-- Update;
-- Delete;
+* Create;
+* Read;
+* Update;
+* Delete;
 
 Take a look at the project [PLAN](PLAN.md).
+
+All scripts are in the folder [resources/db](src/main/resources/db).
+
+SQL scripts:
+* [Init script](src/main/resources/db/initDB_MySQL.sql)
+* [Populate script](src/main/resources/db/populateDB_MySQL.sql)
 
 ## Technologies
 | Technology     | Badge |
