@@ -9,7 +9,6 @@ In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create
 * Delete;
 
 Take a look at the project [PLAN](PLAN.md).
-
 All scripts are in the folder [resources/db](src/main/resources/db).
 
 SQL scripts:
