@@ -1,7 +1,7 @@
 # Project Plan
 
 ## Project Structure
-* [BookManager](BookManager)
+* [BookManager](https://github.com/qThegamEp/BookManager)
     * [src](src)
         * [main](src/main)
             * [java](src/main/java)
