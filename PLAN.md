@@ -11,7 +11,8 @@
                             * Application.java
             * resources
                 * db
-                    * initDB.sql
+                    * initDB_MySQL.sql
+                    * populateDB_MySQL.sql
                 * logback.xml
         * test
             * java
