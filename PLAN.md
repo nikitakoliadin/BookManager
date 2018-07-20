@@ -8,8 +8,10 @@
                 * com
                     * qthegamep
                         * bookmanager
-                            * Application
+                            * Application.java
             * resources
+                * db
+                    * initDB.sql
                 * logback.xml
         * test
             * java
@@ -18,10 +20,10 @@
                         * bookmanager
                             * test
                                 * rule
-                                    * Rules
+                                    * Rules.java
                                 * util
-                                    * TestUtil
-                            * ApplicationTest
+                                    * TestUtil.java
+                            * ApplicationTest.java
             * resources
                 * logback-test.xml
     * .appveyor.yml
@@ -34,5 +36,6 @@
     * README.md
 
 ## Fix In Future
+* Scrutinizer don't work
 
 ## Bugs && Messages
