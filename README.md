@@ -8,7 +8,7 @@ In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create
 - Update;
 - Delete;
 
-Take a look at the project [Plan](PLAN).
+Take a look at the project [PLAN](PLAN.md).
 
 ## Technologies
 | Technology     | Badge |
