@@ -2,6 +2,9 @@ package com.qthegamep.bookmanager.model.entity;
 
 import com.qthegamep.bookmanager.test.rule.Rules;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -159,6 +162,28 @@ public class BookTest {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(null);
+    }
+
+    @Test
+    public void shouldBeNotEqualsIfSubClassHasNewContract() {
+        book = new Book(1, "testBook", "testAuthor", 2010, false);
+
+        @Data
+        @NoArgsConstructor
+        @EqualsAndHashCode(callSuper = true)
+        class BookWithDescription extends Book {
+
+            private String description;
+
+            private BookWithDescription(int id, String name, String author, String description, int printYear, boolean isRead) {
+                super(id, name, author, printYear, isRead);
+                this.description = description;
+            }
+        }
+
+        BookWithDescription bookWithDescription = new BookWithDescription(1, "testBook", "testAuthor", "testDescription", 2010, false);
+
+        assertThat(book).isNotEqualTo(bookWithDescription);
     }
 
     @Test
