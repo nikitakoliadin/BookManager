@@ -35,7 +35,6 @@
                 * [logback-test.xml](src/test/resources/logback-test.xml)
     * [.appveyor.yml](.appveyor.yml)
     * [.gitignore](.gitignore)
-    * [.scrutinizer.yml](.scrutinizer.yml)
     * [.travis.yml](.travis.yml)
     * [LICENSE](LICENSE)
     * [PLAN.md](PLAN.md)
@@ -43,7 +42,6 @@
     * [README.md](README.md)
 
 ## Fix In Future
-* Scrutinizer don't work
 
 ## Bugs && Messages
 * Book.class class modifier message
