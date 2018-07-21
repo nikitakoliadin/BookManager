@@ -88,6 +88,7 @@ public class BookTest {
     @Test
     public void shouldBeEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book copyBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isEqualTo(copyBook);
@@ -96,6 +97,7 @@ public class BookTest {
     @Test
     public void shouldBeEqualsOfCopyObject() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book copyBook = book;
 
         assertThat(book).isEqualTo(copyBook);
@@ -104,6 +106,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsIfIdIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(2, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
@@ -112,6 +115,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsIfNameNullIsNotEquals() {
         book = new Book(1, null, "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
@@ -120,6 +124,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsIfNameIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "newBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
@@ -128,6 +133,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsIfAuthorNullIsNotEquals() {
         book = new Book(1, "testBook", null, 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
@@ -136,6 +142,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsIfAuthorIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "testBook", "newBook", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
@@ -144,6 +151,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsIfPrintYearIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2011, false);
 
         assertThat(book).isNotEqualTo(newBook);
@@ -152,6 +160,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsIfIsReadIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2010, true);
 
         assertThat(book).isNotEqualTo(newBook);
@@ -189,6 +198,7 @@ public class BookTest {
     @Test
     public void shouldBeEqualsHashCode() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book copyBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isEqualTo(copyBook.hashCode());
@@ -197,6 +207,7 @@ public class BookTest {
     @Test
     public void shouldBeEqualsHashCodeOfCopyObject() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book copyBook = book;
 
         assertThat(book.hashCode()).isEqualTo(copyBook.hashCode());
@@ -223,6 +234,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsHashCodeIfIdIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(2, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
@@ -231,6 +243,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsHashCodeIfNameNullIsNotEquals() {
         book = new Book(1, null, "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
@@ -239,6 +252,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsHashCodeIfAuthorNullIsNotEquals() {
         book = new Book(1, "testBook", null, 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
@@ -247,6 +261,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsHashCodeIfPrintYearIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2011, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
@@ -255,6 +270,7 @@ public class BookTest {
     @Test
     public void shouldBeNotEqualsHashCodeIfIsReadIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
+
         Book newBook = new Book(1, "testBook", "testAuthor", 2010, true);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
