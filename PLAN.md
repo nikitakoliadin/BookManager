@@ -22,6 +22,9 @@
                 * [com](src/test/java/com)
                     * [qthegamep](src/test/java/com/qthegamep)
                         * [bookmanager](src/test/java/com/qthegamep/bookmanager)
+                            * [model](src/test/java/com/qthegamep/bookmanager/model)
+                                * [entity](src/test/java/com/qthegamep/bookmanager/model/entity)
+                                    * [BookTest.java](src/test/java/com/qthegamep/bookmanager/model/entity/BookTest.java)
                             * [test](src/test/java/com/qthegamep/bookmanager/test)
                                 * [rule](src/test/java/com/qthegamep/bookmanager/test/rule)
                                     * [Rules.java](src/test/java/com/qthegamep/bookmanager/test/rule/Rules.java)
@@ -43,3 +46,4 @@
 * Scrutinizer don't work
 
 ## Bugs && Messages
+* Book.class class modifier message
