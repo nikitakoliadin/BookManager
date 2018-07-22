@@ -39,7 +39,9 @@ public class SessionUtil {
      */
     public static void setDbPropertiesPath(String dbPropertiesPath) {
         DB_PROPERTIES_PATH = dbPropertiesPath;
+
         isChangeDbPropertiesPath = true;
+
         log.info("Database properties path was changed to [{}]", dbPropertiesPath);
     }
 
@@ -57,7 +59,6 @@ public class SessionUtil {
 
         if (URL == null || USER == null || PASSWORD == null || isChangeDbPropertiesPath) {
             loadDBProperties();
-            log.info("Preparing to load database properties was done successful! Properties was load");
         }
 
         log.info("Parameters: URL={}, USER={}, PASSWORD={}", URL, USER, PASSWORD);
@@ -99,5 +100,7 @@ public class SessionUtil {
 
             isChangeDbPropertiesPath = false;
         }
+
+        log.info("Preparing to load database properties was done successful! Properties was load");
     }
 }
