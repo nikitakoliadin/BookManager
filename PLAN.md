@@ -47,4 +47,3 @@
 ## Fix In Future
 
 ## Bugs && Messages
-* Book.class class modifier message
