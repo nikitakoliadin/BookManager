@@ -5,6 +5,7 @@ import com.qthegamep.bookmanager.test.rule.Rules;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.val;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -44,7 +45,7 @@ public class BookTest {
 
     @Test
     public void shouldGetAndSetId() {
-        int id = 1;
+        val id = 1;
 
         book.setId(id);
 
@@ -53,7 +54,7 @@ public class BookTest {
 
     @Test
     public void shouldGetAndSetName() {
-        String name = "testBook";
+        val name = "testBook";
 
         book.setName(name);
 
@@ -62,7 +63,7 @@ public class BookTest {
 
     @Test
     public void shouldGetAndSetAuthor() {
-        String author = "testAuthor";
+        val author = "testAuthor";
 
         book.setAuthor(author);
 
@@ -71,7 +72,7 @@ public class BookTest {
 
     @Test
     public void shouldGetAndSetPrintYear() {
-        int printYear = 2010;
+        val printYear = 2010;
 
         book.setPrintYear(printYear);
 
@@ -80,16 +81,18 @@ public class BookTest {
 
     @Test
     public void shouldGetAndSetIsRead() {
-        book.setRead(false);
+        val isRead = false;
 
-        assertThat(book.isRead()).isEqualTo(false);
+        book.setRead(isRead);
+
+        assertThat(book.isRead()).isEqualTo(isRead);
     }
 
     @Test
     public void shouldBeEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book copyBook = new Book(1, "testBook", "testAuthor", 2010, false);
+        val copyBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isEqualTo(copyBook);
     }
@@ -98,7 +101,7 @@ public class BookTest {
     public void shouldBeEqualsWithNullName() {
         book = new Book(1, null, "testAuthor", 2010, false);
 
-        Book copyBook = new Book(1, null, "testAuthor", 2010, false);
+        val copyBook = new Book(1, null, "testAuthor", 2010, false);
 
         assertThat(book).isEqualTo(copyBook);
     }
@@ -107,7 +110,7 @@ public class BookTest {
     public void shouldBeEqualsWithNullAuthor() {
         book = new Book(1, "testBook", null, 2010, false);
 
-        Book copyBook = new Book(1, "testBook", null, 2010, false);
+        val copyBook = new Book(1, "testBook", null, 2010, false);
 
         assertThat(book).isEqualTo(copyBook);
     }
@@ -116,7 +119,7 @@ public class BookTest {
     public void shouldBeEqualsOfCopyObject() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book copyBook = book;
+        val copyBook = book;
 
         assertThat(book).isEqualTo(copyBook);
     }
@@ -125,7 +128,7 @@ public class BookTest {
     public void shouldBeNotEqualsIfIdIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(2, "testBook", "testAuthor", 2010, false);
+        val newBook = new Book(2, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
     }
@@ -134,7 +137,7 @@ public class BookTest {
     public void shouldBeNotEqualsIfNameNullIsNotEquals() {
         book = new Book(1, null, "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
+        val newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
     }
@@ -143,7 +146,7 @@ public class BookTest {
     public void shouldBeNotEqualsIfNameIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "newBook", "testAuthor", 2010, false);
+        val newBook = new Book(1, "newBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
     }
@@ -152,7 +155,7 @@ public class BookTest {
     public void shouldBeNotEqualsIfAuthorNullIsNotEquals() {
         book = new Book(1, "testBook", null, 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
+        val newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
     }
@@ -161,7 +164,7 @@ public class BookTest {
     public void shouldBeNotEqualsIfAuthorIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "testBook", "newBook", 2010, false);
+        val newBook = new Book(1, "testBook", "newBook", 2010, false);
 
         assertThat(book).isNotEqualTo(newBook);
     }
@@ -170,7 +173,7 @@ public class BookTest {
     public void shouldBeNotEqualsIfPrintYearIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2011, false);
+        val newBook = new Book(1, "testBook", "testAuthor", 2011, false);
 
         assertThat(book).isNotEqualTo(newBook);
     }
@@ -179,7 +182,7 @@ public class BookTest {
     public void shouldBeNotEqualsIfIsReadIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2010, true);
+        val newBook = new Book(1, "testBook", "testAuthor", 2010, true);
 
         assertThat(book).isNotEqualTo(newBook);
     }
@@ -188,7 +191,9 @@ public class BookTest {
     public void shouldBeNotEqualsToNullObject() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        assertThat(book).isNotEqualTo(null);
+        val newBook = null;
+
+        assertThat(book).isNotEqualTo(newBook);
     }
 
     @Test
@@ -208,7 +213,7 @@ public class BookTest {
             }
         }
 
-        BookWithDescription bookWithDescription = new BookWithDescription(1, "testBook", "testAuthor", "testDescription", 2010, false);
+        val bookWithDescription = new BookWithDescription(1, "testBook", "testAuthor", "testDescription", 2010, false);
 
         assertThat(book).isNotEqualTo(bookWithDescription);
     }
@@ -217,7 +222,7 @@ public class BookTest {
     public void shouldBeEqualsHashCode() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book copyBook = new Book(1, "testBook", "testAuthor", 2010, false);
+        val copyBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isEqualTo(copyBook.hashCode());
     }
@@ -226,7 +231,7 @@ public class BookTest {
     public void shouldBeEqualsHashCodeOfCopyObject() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book copyBook = book;
+        val copyBook = book;
 
         assertThat(book.hashCode()).isEqualTo(copyBook.hashCode());
     }
@@ -235,13 +240,13 @@ public class BookTest {
     public void shouldWorkHashCodeCorrectly() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        int actual = book.hashCode();
+        val actual = book.hashCode();
 
         int expected = 1;
         expected = expected * 59 + book.getId();
-        Object name = book.getName();
+        val name = book.getName();
         expected = expected * 59 + (name == null ? 43 : name.hashCode());
-        Object author = book.getAuthor();
+        val author = book.getAuthor();
         expected = expected * 59 + (author == null ? 43 : author.hashCode());
         expected = expected * 59 + book.getPrintYear();
         expected = expected * 59 + (book.isRead() ? 79 : 97);
@@ -253,7 +258,7 @@ public class BookTest {
     public void shouldBeNotEqualsHashCodeIfIdIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(2, "testBook", "testAuthor", 2010, false);
+        val newBook = new Book(2, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
     }
@@ -262,7 +267,7 @@ public class BookTest {
     public void shouldBeNotEqualsHashCodeIfNameNullIsNotEquals() {
         book = new Book(1, null, "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
+        val newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
     }
@@ -271,7 +276,7 @@ public class BookTest {
     public void shouldBeNotEqualsHashCodeIfAuthorNullIsNotEquals() {
         book = new Book(1, "testBook", null, 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2010, false);
+        val newBook = new Book(1, "testBook", "testAuthor", 2010, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
     }
@@ -280,7 +285,7 @@ public class BookTest {
     public void shouldBeNotEqualsHashCodeIfPrintYearIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2011, false);
+        val newBook = new Book(1, "testBook", "testAuthor", 2011, false);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
     }
@@ -289,7 +294,7 @@ public class BookTest {
     public void shouldBeNotEqualsHashCodeIfIsReadIsNotEquals() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        Book newBook = new Book(1, "testBook", "testAuthor", 2010, true);
+        val newBook = new Book(1, "testBook", "testAuthor", 2010, true);
 
         assertThat(book.hashCode()).isNotEqualTo(newBook.hashCode());
     }
@@ -305,7 +310,7 @@ public class BookTest {
     public void shouldWorkToStringCorrectly() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
-        String expected = "Book(id=1, name=testBook, author=testAuthor, printYear=2010, isRead=false)";
+        val expected = "Book(id=1, name=testBook, author=testAuthor, printYear=2010, isRead=false)";
 
         assertThat(book.toString()).isEqualTo(expected);
     }
