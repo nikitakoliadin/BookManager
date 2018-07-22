@@ -95,6 +95,15 @@ public class BookTest {
     }
 
     @Test
+    public void shouldBeEqualsWithNullName() {
+        book = new Book(1, null, "testAuthor", 2010, false);
+
+        Book copyBook = new Book(1, null, "testAuthor", 2010, false);
+
+        assertThat(book).isEqualTo(copyBook);
+    }
+
+    @Test
     public void shouldBeEqualsOfCopyObject() {
         book = new Book(1, "testBook", "testAuthor", 2010, false);
 
