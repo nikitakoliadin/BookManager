@@ -15,6 +15,7 @@
             * [resources](src/main/resources)
                 * [db](src/main/resources/db)
                     * [initDB_MySQL.sql](src/main/resources/db/initDB_MySQL.sql)
+                    * [MySQL.properties](src/main/resources/db/MySQL.properties)
                     * [populateDB_MySQL.sql](src/main/resources/db/populateDB_MySQL.sql)
                 * [logback.xml](src/main/resources/logback.xml)
         * [test](src/test)
