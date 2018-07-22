@@ -11,6 +11,8 @@
                             * [model](src/main/java/com/qthegamep/bookmanager/model)
                                 * [entity](src/main/java/com/qthegamep/bookmanager/model/entity)
                                     * [Book.java](src/main/java/com/qthegamep/bookmanager/model/entity/Book.java)
+                            * [util](src/main/java/com/qthegamep/bookmanager/util)
+                                * [SessionUtil.java](src/main/java/com/qthegamep/bookmanager/util/SessionUtil.java)
                             * [Application.java](src/main/java/com/qthegamep/bookmanager/Application.java)
             * [resources](src/main/resources)
                 * [db](src/main/resources/db)
