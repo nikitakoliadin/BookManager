@@ -53,3 +53,5 @@
 ## Fix In Future
 
 ## Bugs && Messages
+* SessionUtil.java - openConnection() method access message
+* SessionUtil.java - closeConnection() method access message
