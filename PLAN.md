@@ -37,6 +37,8 @@
                                     * [Rules.java](src/test/java/com/qthegamep/bookmanager/test/rule/Rules.java)
                                 * [util](src/test/java/com/qthegamep/bookmanager/test/util)
                                     * [TestUtil.java](src/test/java/com/qthegamep/bookmanager/test/util/TestUtil.java)
+                            * [util](src/test/java/com/qthegamep/bookmanager/util)
+                                * [SessionUtilTest.java](src/test/java/com/qthegamep/bookmanager/util/SessionUtilTest.java)
                             * [ApplicationTest.java](src/test/java/com/qthegamep/bookmanager/ApplicationTest.java)
             * [resources](src/test/resources)
                 * [logback-test.xml](src/test/resources/logback-test.xml)
