@@ -6,6 +6,10 @@ cache:
   directories:
   - $HOME/.m2
 
+# Setting Up Databases - https://docs.travis-ci.com/user/database-setup/#MySQL
+services:
+  - mysql
+
 # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
 matrix:
   fast_finish: true
