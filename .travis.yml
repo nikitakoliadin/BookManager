@@ -14,9 +14,8 @@ before_install:
   - mysql -uroot -e 'DROP DATABASE IF EXISTS bookmanager;'
   - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS bookmanager;'
   - mysql -uroot -e 'USE bookmanager;'
-  - cd src && cd main && cd resources && cd db
-  - mysql -uroot bookmanager< initDB_MySQL.sql
-  - mysql -uroot bookmanager< populateDB_MySQL.sql
+  - mysql -uroot bookmanager< src/main/resources/db/initDB_MySQL.sql
+  - mysql -uroot bookmanager< src/main/resources/db/populateDB_MySQL.sql
 
 # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
 matrix:
