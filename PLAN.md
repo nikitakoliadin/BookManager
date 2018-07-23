@@ -27,6 +27,8 @@
                 * [com](src/test/java/com)
                     * [qthegamep](src/test/java/com/qthegamep)
                         * [bookmanager](src/test/java/com/qthegamep/bookmanager)
+                            * [exception](src/test/java/com/qthegamep/bookmanager/exception)
+                                * [LoadDBPropertiesExceptionTest.java](src/test/java/com/qthegamep/bookmanager/exception/LoadDBPropertiesExceptionTest.java)
                             * [model](src/test/java/com/qthegamep/bookmanager/model)
                                 * [entity](src/test/java/com/qthegamep/bookmanager/model/entity)
                                     * [BookTest.java](src/test/java/com/qthegamep/bookmanager/model/entity/BookTest.java)
