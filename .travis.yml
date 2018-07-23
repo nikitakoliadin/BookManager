@@ -11,13 +11,8 @@ services:
   - mysql
 
 before_install:
-  - mysql -uroot -e 'CREATE USER root IDENTIFIED BY root;'
-  - mysql -uroot -e 'GRANT SELECT, INSERT ,UPDATE, DELETE, CREATE, DROP ON *.* TO root;'
-  - mysql -uroot -e 'DROP DATABASE IF EXISTS bookmanager;'
-  - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS bookmanager;'
-  - mysql -uroot -e 'USE bookmanager;'
-  - mysql -uroot bookmanager< src/main/resources/db/initDB_MySQL.sql
-  - mysql -uroot bookmanager< src/main/resources/db/populateDB_MySQL.sql
+  - mysql -u root bookmanager< src/main/resources/db/initDB_MySQL.sql
+  - mysql -u root bookmanager< src/main/resources/db/populateDB_MySQL.sql
 
 # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
 matrix:
