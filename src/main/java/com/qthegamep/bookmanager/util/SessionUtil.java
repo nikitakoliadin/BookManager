@@ -1,11 +1,12 @@
 package com.qthegamep.bookmanager.util;
 
+import com.qthegamep.bookmanager.exception.LoadDBPropertiesException;
+
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -37,7 +38,7 @@ public class SessionUtil {
      *
      * @param dbPropertiesPath the path to the connection properties file.
      */
-    public static void setDbPropertiesPath(String dbPropertiesPath) {
+    public void setDbPropertiesPath(String dbPropertiesPath) {
         DB_PROPERTIES_PATH = dbPropertiesPath;
 
         isChangeDbPropertiesPath = true;
@@ -51,10 +52,10 @@ public class SessionUtil {
      * then they will be loaded from the file.
      *
      * @return connection with database
-     * @throws SQLException can be thrown when connection parameters are wrong.
-     * @throws IOException  exception must be processed.
+     * @throws SQLException              can be thrown when connection parameters are wrong.
+     * @throws LoadDBPropertiesException can be thrown when any error occurred while loading database properties.
      */
-    public Connection openConnection() throws SQLException, IOException {
+    public Connection openConnection() throws SQLException, LoadDBPropertiesException {
         log.info("Preparing to open connection");
 
         if (URL == null || USER == null || PASSWORD == null || isChangeDbPropertiesPath) {
@@ -85,7 +86,7 @@ public class SessionUtil {
         }
     }
 
-    private void loadDBProperties() throws IOException {
+    private void loadDBProperties() {
         log.info("Preparing to load database properties");
 
         val properties = new Properties();
@@ -99,6 +100,12 @@ public class SessionUtil {
             PASSWORD = properties.getProperty("database.password");
 
             isChangeDbPropertiesPath = false;
+        } catch (Exception e) {
+            log.error("Failed to load database properties, message: [{}]",
+                    e.getMessage(),
+                    e
+            );
+            throw new LoadDBPropertiesException(e.getMessage(), e);
         }
 
         log.info("Preparing to load database properties was done successful! Properties was load");
