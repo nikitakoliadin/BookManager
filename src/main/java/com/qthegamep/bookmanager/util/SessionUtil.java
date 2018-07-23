@@ -2,7 +2,6 @@ package com.qthegamep.bookmanager.util;
 
 import com.qthegamep.bookmanager.exception.LoadDBPropertiesException;
 
-import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -14,42 +13,22 @@ import java.util.Properties;
 
 /**
  * This class is a utility helper class responsible for opening and closing a connection to the database.
- * We can modify the connection properties file. Any changes will cause a reload of the connection parameters
- * with the database from the settings file.
  */
 @Slf4j
 @UtilityClass
 public class SessionUtil {
 
-    private Connection connection;
+    private final String DB_PROPERTIES_PATH = "db/MySQL.properties";
 
-    @Getter
-    private String DB_PROPERTIES_PATH = "db/MySQL.properties";
+    private Connection connection;
 
     private String URL;
     private String USER;
     private String PASSWORD;
 
-    private boolean isChangeDbPropertiesPath = false;
-
-    /**
-     * The method configures the path to the connection properties file.
-     * After changing this field the connection parameters will be reloaded the next time you connect.
-     *
-     * @param dbPropertiesPath the path to the connection properties file.
-     */
-    public void setDbPropertiesPath(String dbPropertiesPath) {
-        DB_PROPERTIES_PATH = dbPropertiesPath;
-
-        isChangeDbPropertiesPath = true;
-
-        log.info("Database properties path was changed to [{}]", dbPropertiesPath);
-    }
-
     /**
      * This method opens a connection to the database.
-     * If the connection parameters are not configured or the path to the connection properties file has been changed,
-     * then they will be loaded from the file.
+     * If the connection parameters are not configured it will be loaded from the properties file.
      *
      * @return connection with database
      * @throws SQLException              can be thrown when connection parameters are wrong.
@@ -58,7 +37,7 @@ public class SessionUtil {
     public Connection openConnection() throws SQLException, LoadDBPropertiesException {
         log.info("Preparing to open connection");
 
-        if (URL == null || USER == null || PASSWORD == null || isChangeDbPropertiesPath) {
+        if (URL == null || USER == null || PASSWORD == null) {
             loadDBProperties();
         }
 
@@ -71,7 +50,7 @@ public class SessionUtil {
     }
 
     /**
-     * This method closes the connection to the database if there is a connection.
+     * This method closes the connection to the database if there is open connection.
      *
      * @throws SQLException exception must be processed.
      */
@@ -98,8 +77,6 @@ public class SessionUtil {
             URL = properties.getProperty("database.url");
             USER = properties.getProperty("database.user");
             PASSWORD = properties.getProperty("database.password");
-
-            isChangeDbPropertiesPath = false;
         } catch (Exception e) {
             log.error("Failed to load database properties, message: [{}]",
                     e.getMessage(),
