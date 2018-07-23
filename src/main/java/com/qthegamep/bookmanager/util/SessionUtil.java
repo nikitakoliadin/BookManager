@@ -18,7 +18,7 @@ import java.util.Properties;
 @UtilityClass
 public class SessionUtil {
 
-    private final String DB_PROPERTIES_PATH = "db/MySQL.properties";
+    private final String DB_PROPERTIES_PATH = String.valueOf("db/MySQL.properties");
 
     private Connection connection;
 
@@ -41,7 +41,7 @@ public class SessionUtil {
             loadDBProperties();
         }
 
-        log.info("Parameters: URL={}, USER={}, PASSWORD={}", URL, USER, PASSWORD);
+        log.info("Database connection parameters: URL={}, USER={}, PASSWORD={}", URL, USER, PASSWORD);
         connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
         log.info("Preparing to open connection was done successful! Connection was opened");
@@ -70,6 +70,7 @@ public class SessionUtil {
 
         val properties = new Properties();
 
+        log.info("Database properties path: [{}]", DB_PROPERTIES_PATH);
         try (val inputStream = ClassLoader.getSystemResourceAsStream(DB_PROPERTIES_PATH)) {
             properties.load(inputStream);
             log.info("Properties file was load successful! Preparing to load information");
