@@ -8,6 +8,8 @@
                 * [com](src/main/java/com)
                     * [qthegamep](src/main/java/com/qthegamep)
                         * [bookmanager](src/main/java/com/qthegamep/bookmanager)
+                            * [exception](src/main/java/com/qthegamep/bookmanager/exception)
+                                * [LoadDBPropertiesException.java](src/main/java/com/qthegamep/bookmanager/exception/LoadDBPropertiesException.java)
                             * [model](src/main/java/com/qthegamep/bookmanager/model)
                                 * [entity](src/main/java/com/qthegamep/bookmanager/model/entity)
                                     * [Book.java](src/main/java/com/qthegamep/bookmanager/model/entity/Book.java)
