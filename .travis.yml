@@ -13,7 +13,7 @@ services:
 before_install:
   - mysql -uroot -e 'DROP DATABASE IF EXISTS bookmanager;'
   - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS bookmanager;'
-  - mysql -uroot -e 'USE koalatest;'
+  - mysql -uroot -e 'USE bookmanager;'
   - cd src && cd main && cd resources && cd db
   - mysql -uroot bookmanager< initDB_MySQL.sql
   - mysql -uroot bookmanager< populateDB_MySQL.sql
