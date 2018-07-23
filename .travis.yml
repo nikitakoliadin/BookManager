@@ -11,8 +11,8 @@ services:
   - mysql
 
 before_install:
-  - mysql -uroot -e 'CREATE USER ''root''@''localhost'' IDENTIFIED BY ''root'';'
-  - mysql -uroot -e 'GRANT SELECT, INSERT ,UPDATE, DELETE, CREATE, DROP ON *.* TO ''root''@''localhost'';'
+  - mysql -uroot -e 'CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';'
+  - mysql -uroot -e 'GRANT SELECT, INSERT ,UPDATE, DELETE, CREATE, DROP ON *.* TO 'root'@'localhost';'
   - mysql -uroot -e 'DROP DATABASE IF EXISTS bookmanager;'
   - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS bookmanager;'
   - mysql -uroot -e 'USE bookmanager;'
