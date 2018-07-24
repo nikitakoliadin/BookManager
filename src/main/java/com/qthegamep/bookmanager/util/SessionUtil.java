@@ -18,7 +18,7 @@ import java.util.Properties;
 @UtilityClass
 public class SessionUtil {
 
-    private final String DB_PROPERTIES_PATH = String.valueOf("db/MySQL.properties");
+    private final String DB_PROPERTIES_PATH = String.valueOf("db/DB.properties");
 
     private Connection connection;
 
