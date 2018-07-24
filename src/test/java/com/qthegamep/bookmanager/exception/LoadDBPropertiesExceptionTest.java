@@ -22,7 +22,7 @@ public class LoadDBPropertiesExceptionTest {
     @Test
     public void shouldThrowLoadDBPropertiesExceptionCorrectly() {
         assertThatExceptionOfType(LoadDBPropertiesException.class).isThrownBy(() -> {
-            throw new LoadDBPropertiesException("Failed to load database properties", new NullPointerException("USER is null"));
-        }).withMessage("Failed to load database properties").withCauseInstanceOf(NullPointerException.class);
+            throw new LoadDBPropertiesException("Failed to load database properties", new IllegalAccessException("testException"));
+        }).withMessage("Failed to load database properties").withCauseInstanceOf(IllegalAccessException.class);
     }
 }
