@@ -12,7 +12,7 @@ Take a look at the project [PLAN](PLAN.md). All scripts are in the folder [resou
 
 SQL scripts:
 * [Init table script](src/main/resources/db/initDBTable.sql)
-* [Populate script](src/main/resources/db/populateDB_MySQL.sql)
+* [Populate script](src/main/resources/db/populateDB.sql)
 
 ## Technologies
 | Technology     | Badge |
