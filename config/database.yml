@@ -1,8 +1,0 @@
-test:
-  adapter: mysql2
-  encoding: utf8
-  database: bookmanager
-  username: root
-  password: root
-  host: localhost
-  port: 3306
