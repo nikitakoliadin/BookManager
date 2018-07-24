@@ -19,7 +19,7 @@
             * [resources](src/main/resources)
                 * [db](src/main/resources/db)
                     * [initDBTable.sql](src/main/resources/db/initDBTable.sql)
-                    * [MySQL.properties](src/main/resources/db/MySQL.properties)
+                    * [DB.properties](src/main/resources/db/DB.properties)
                     * [populateDB.sql](src/main/resources/db/populateDB.sql)
                 * [logback.xml](src/main/resources/logback.xml)
         * [test](src/test)
