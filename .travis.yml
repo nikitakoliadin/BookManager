@@ -10,16 +10,16 @@ cache:
 services:
   - mysql
 
-before_script:
+before_install:
 #  - mysql -u root -e 'DROP DATABASE IF EXISTS bookmanager;'
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS bookmanager;'
 #  - mysql -u root -e 'USE bookmanager;'
-  - mysql -u root bookmanager< src/main/resources/db/initDB_MySQL.sql
-  - mysql -u root bookmanager< src/main/resources/db/populateDB_MySQL.sql
+  - mysql -u root bookmanager < src/main/resources/db/initDB_MySQL.sql
+  - mysql -u root bookmanager < src/main/resources/db/populateDB_MySQL.sql
 
 # Customizing The Build - https://docs.travis-ci.com/user/customizing-the-build/
 script:
-  - mvn clean install -B
+  - mvn clean test -B
 
 # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
 matrix:
