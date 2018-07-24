@@ -10,10 +10,10 @@ cache:
 services:
   - mysql
 
-before_install:
-  - mysql -u root -e 'DROP DATABASE IF EXISTS bookmanager;'
+before_script:
+#  - mysql -u root -e 'DROP DATABASE IF EXISTS bookmanager;'
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS bookmanager;'
-  - mysql -u root -e 'USE bookmanager;'
+#  - mysql -u root -e 'USE bookmanager;'
   - mysql -u root bookmanager< src/main/resources/db/initDB_MySQL.sql
   - mysql -u root bookmanager< src/main/resources/db/populateDB_MySQL.sql
 
