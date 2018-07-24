@@ -11,8 +11,17 @@ services:
   - mysql
 
 before_install:
+  - mysql -u root -e 'DROP DATABASE IF EXISTS bookmanager;'
+  - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS bookmanager;'
+  - mysql -u root -e 'USE bookmanager;'
+  - mysql -u root -e "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';"
+  - mysql -u root -e "GRANT ALL ON bookmanager.* TO 'root'@'localhost';"
   - mysql -u root bookmanager< src/main/resources/db/initDB_MySQL.sql
   - mysql -u root bookmanager< src/main/resources/db/populateDB_MySQL.sql
+
+# Customizing The Build - https://docs.travis-ci.com/user/customizing-the-build/
+script:
+  - mvn clean install -B
 
 # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
 matrix:
