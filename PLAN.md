@@ -20,7 +20,7 @@
                 * [db](src/main/resources/db)
                     * [initDBTable.sql](src/main/resources/db/initDBTable.sql)
                     * [MySQL.properties](src/main/resources/db/MySQL.properties)
-                    * [populateDB_MySQL.sql](src/main/resources/db/populateDB_MySQL.sql)
+                    * [populateDB.sql](src/main/resources/db/populateDB.sql)
                 * [logback.xml](src/main/resources/logback.xml)
         * [test](src/test)
             * [java](src/test/java)
