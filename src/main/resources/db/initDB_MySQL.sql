@@ -5,13 +5,13 @@ CREATE USER 'dev'@'localhost'
 
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP ON *.* TO 'dev'@'localhost';
 
-CREATE DATABASE IF NOT EXISTS `bookmanager`
+CREATE DATABASE IF NOT EXISTS bookmanager
   DEFAULT CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-USE `bookmanager`;
+USE bookmanager;
 
-DROP TABLE IF EXISTS `bookmanager`.`books`;
+DROP TABLE IF EXISTS bookmanager.books;
 
 CREATE TABLE `books` (
   `id`        int(11)      NOT NULL AUTO_INCREMENT,
