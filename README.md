@@ -11,7 +11,7 @@ In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create
 Take a look at the project [PLAN](PLAN.md). All scripts are in the folder [resources/db](src/main/resources/db).
 
 SQL scripts:
-* [Init script](src/main/resources/db/initDB_MySQL.sql)
+* [Init table script](src/main/resources/db/initDBTable.sql)
 * [Populate script](src/main/resources/db/populateDB_MySQL.sql)
 
 ## Technologies
