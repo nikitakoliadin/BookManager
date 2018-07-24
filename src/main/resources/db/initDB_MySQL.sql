@@ -1,17 +1,4 @@
-DROP USER IF EXISTS 'dev'@'localhost';
-
-CREATE USER 'dev'@'localhost'
-  IDENTIFIED BY 'dev';
-
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP ON *.* TO 'dev'@'localhost';
-
-CREATE DATABASE IF NOT EXISTS bookmanager
-  DEFAULT CHARACTER SET utf8
-  COLLATE utf8_general_ci;
-
-USE bookmanager;
-
-DROP TABLE IF EXISTS bookmanager.books;
+DROP TABLE IF EXISTS `bookmanager`.`books`;
 
 CREATE TABLE `books` (
   `id`        int(11)      NOT NULL AUTO_INCREMENT,
