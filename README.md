@@ -1,7 +1,7 @@
 # BookManager
 
 ## Project Information
-This project is the manager of books. I used the MySQL database and JDBC.
+This project is the manager of books. I used the H2 database.
 In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations:
 * Create
 * Read
@@ -54,7 +54,7 @@ If you want to use this project:
 * **Log:**
     * [SLF4J](https://www.slf4j.org/)
     * [Logback](https://logback.qos.ch/)
-* **Database:** [MySQL](https://dev.mysql.com/)
+* **Database:** [H2](http://www.h2database.com/html/main.html)
 
 ## Resources
 * **External Libraries:**
@@ -67,7 +67,7 @@ If you want to use this project:
     * [JCL Over SLF4J](https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j)
     * [JUL to SLF4J](https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j)
     * [Logback](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic)
-    * [MySQL JDBC](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+    * [H2 JDBC](https://mvnrepository.com/artifact/com.h2database/h2)
 * **Plugins:**
     * [Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
     * [Assembly Plugin](http://maven.apache.org/plugins/maven-assembly-plugin/)
