@@ -24,6 +24,7 @@
                         * [populateDB.sql](src/main/resources/db/h2/populateDB.sql)
                     * [mysql](src/main/resources/db/mysql)
                         * [DB.properties](src/main/resources/db/mysql/DB.properties)
+                        * [initDB.sql](src/main/resources/db/mysql/initDB.sql)
                 * [logback.xml](src/main/resources/logback.xml)
         * [test](src/test)
             * [java](src/test/java)
