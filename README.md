@@ -1,18 +1,22 @@
 # BookManager
 
 ## Project Information
-This project is the manager of books. I used the H2 database.
+This project is the manager of books. I used MySQL database as main and H2 database for tests.
 In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations:
 * Create
 * Read
 * Update
 * Delete
 
-Take a look at the project [PLAN](PLAN.md). All scripts are in the folder [resources/db](src/main/resources/db).
+Take a look at the project [PLAN](PLAN.md). All database setting in the folder [resources/db](src/main/resources/db).
 
 SQL scripts:
-* [Init table script](src/main/resources/db/initDBTable.sql)
-* [Populate script](src/main/resources/db/populateDB.sql)
+* MySQL
+    * [Init table script](src/main/resources/db/mysql/initDB.sql)
+    * [Populate script](src/main/resources/db/mysql/populateDB.sql)
+* H2
+    * [Init table script](src/main/resources/db/h2/initDB.sql)
+    * [Populate script](src/main/resources/db/h2/populateDB.sql)
 
 ## Technologies
 | Technology     | Badge |
@@ -54,7 +58,9 @@ If you want to use this project:
 * **Log:**
     * [SLF4J](https://www.slf4j.org/)
     * [Logback](https://logback.qos.ch/)
-* **Database:** [H2](http://www.h2database.com/html/main.html)
+* **Database:**
+    * [MySQL](https://dev.mysql.com/)
+    * [H2](http://www.h2database.com/html/main.html)
 
 ## Resources
 * **External Libraries:**
@@ -67,6 +73,7 @@ If you want to use this project:
     * [JCL Over SLF4J](https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j)
     * [JUL to SLF4J](https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j)
     * [Logback](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic)
+    * [MySQL JDBC](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
     * [H2 JDBC](https://mvnrepository.com/artifact/com.h2database/h2)
 * **Plugins:**
     * [Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
