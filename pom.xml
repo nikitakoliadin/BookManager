@@ -60,11 +60,20 @@
         <!-- Logback -->
         <logback.version>1.2.3</logback.version>
 
+        <!-- MySQL JDBC -->
+        <mysql.jdbc.version>8.0.11</mysql.jdbc.version>
+
         <!-- H2 JDBC -->
         <h2.jdbc.version>1.4.197</h2.jdbc.version>
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
         <plugins>
             <!-- Compiler plugin -->
             <plugin>
@@ -234,14 +243,50 @@
             <version>${logback.version}</version>
             <scope>runtime</scope>
         </dependency>
-
-        <!-- Database -->
-        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.jdbc.version}</version>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
+
+    <profiles>
+        <!-- Main profile -->
+        <profile>
+            <id>mysql-database</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/db/config/mysql</directory>
+                    </resource>
+                </resources>
+            </build>
+            <dependencies>
+                <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.jdbc.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <!-- Test profile -->
+        <profile>
+            <id>h2-database</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/db/config/h2</directory>
+                    </resource>
+                </resources>
+            </build>
+            <dependencies>
+                <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${h2.jdbc.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>
