@@ -255,7 +255,7 @@
             <build>
                 <resources>
                     <resource>
-                        <directory>src/main/resources/db/config/mysql</directory>
+                        <directory>src/main/resources/db/mysql</directory>
                     </resource>
                 </resources>
             </build>
@@ -275,7 +275,7 @@
             <build>
                 <resources>
                     <resource>
-                        <directory>src/main/resources/db/config/h2</directory>
+                        <directory>src/main/resources/db/h2</directory>
                     </resource>
                 </resources>
             </build>
