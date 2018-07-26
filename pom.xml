@@ -68,6 +68,7 @@
     </properties>
 
     <build>
+        <!-- Main resources directory -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
