@@ -21,6 +21,8 @@
                     * [config](src/main/resources/db/config)
                         * [h2](src/main/resources/db/config/h2)
                             * [DB.properties](src/main/resources/db/config/h2/DB.properties)
+                        * [mysql](src/main/resources/db/config/mysql)
+                            * [DB.properties](src/main/resources/db/config/mysql/DB.properties)
                     * [initDBTable.sql](src/main/resources/db/initDBTable.sql)
                     * [populateDB.sql](src/main/resources/db/populateDB.sql)
                 * [logback.xml](src/main/resources/logback.xml)
