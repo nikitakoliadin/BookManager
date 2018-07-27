@@ -1,6 +1,6 @@
 package com.qthegamep.bookmanager.exception;
 
-import com.qthegamep.bookmanager.test.rule.Rules;
+import com.qthegamep.bookmanager.testhelper.rule.Rules;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
