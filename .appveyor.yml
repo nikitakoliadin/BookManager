@@ -19,7 +19,7 @@ install:
   - cmd: SET PATH=C:\maven\apache-maven-3.5.4\bin;%JAVA_HOME%\bin;%PATH%
   - cmd: SET MAVEN_OPTS=-Dhttps.protocols=TLSv1.2
 build_script:
-  - mvn clean install -P h2-database -B
+  - mvn clean install -Ph2-database -B
 
 # Caching Data Between Builds - https://www.appveyor.com/docs/build-cache/
 cache:
