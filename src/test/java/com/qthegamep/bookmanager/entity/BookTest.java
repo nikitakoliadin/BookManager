@@ -1,6 +1,6 @@
 package com.qthegamep.bookmanager.entity;
 
-import com.qthegamep.bookmanager.test.rule.Rules;
+import com.qthegamep.bookmanager.testhelper.rule.Rules;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
