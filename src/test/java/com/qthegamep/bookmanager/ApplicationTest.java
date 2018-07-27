@@ -1,6 +1,6 @@
 package com.qthegamep.bookmanager;
 
-import com.qthegamep.bookmanager.test.rule.Rules;
+import com.qthegamep.bookmanager.testhelper.rule.Rules;
 
 import lombok.val;
 import org.junit.ClassRule;
