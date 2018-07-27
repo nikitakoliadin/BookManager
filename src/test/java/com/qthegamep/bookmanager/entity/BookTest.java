@@ -1,4 +1,4 @@
-package com.qthegamep.bookmanager.model.entity;
+package com.qthegamep.bookmanager.entity;
 
 import com.qthegamep.bookmanager.test.rule.Rules;
 
