@@ -8,19 +8,19 @@ cache:
   - $HOME/.m2
 
 # Customizing The Build - https://docs.travis-ci.com/user/customizing-the-build/
+before_install:
+  - mvn -Ph2-database -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-  - mvn clean install -P h2-database -B
+  - mvn test -Ph2-database -B
 
 # # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
-# matrix:
-#   fast_finish: true
-#   include:
-#     - jdk: oraclejdk10
-#       env:
-#         - DESC="All build with oraclejdk10"
-#     - jdk: openjdk10
-#       env:
-#         - DESC="All build with openjdk10"
+ matrix:
+   fast_finish: true
+   include:
+     - jdk: oraclejdk10
+       env: DESC="All build with oraclejdk10"
+     - jdk: openjdk10
+       env: DESC="All build with openjdk10"
 
 # Codecov - https://github.com/codecov/example-java
 after_success:
