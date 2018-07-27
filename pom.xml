@@ -270,9 +270,6 @@
         <!-- Test profile -->
         <profile>
             <id>h2-database</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <resources>
                     <resource>
