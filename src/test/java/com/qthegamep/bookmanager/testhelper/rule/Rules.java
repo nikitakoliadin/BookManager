@@ -1,6 +1,6 @@
-package com.qthegamep.bookmanager.test.rule;
+package com.qthegamep.bookmanager.testhelper.rule;
 
-import com.qthegamep.bookmanager.test.util.TestUtil;
+import com.qthegamep.bookmanager.testhelper.util.IOUtil;
 
 import lombok.experimental.UtilityClass;
 import lombok.val;
@@ -74,12 +74,12 @@ public class Rules {
 
         @Override
         protected void before() {
-            TestUtil.setInputOutputStreamToConsole();
+            IOUtil.setInputOutputStreamToConsole();
         }
 
         @Override
         protected void after() {
-            TestUtil.setInputOutputStreamToConsole();
+            IOUtil.setInputOutputStreamToConsole();
         }
     };
 
