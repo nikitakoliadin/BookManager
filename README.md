@@ -12,10 +12,10 @@ Take a look at the project [PLAN](PLAN.md). All database setting in the folder [
 
 SQL scripts:
 * MySQL
-    * [Init table script](src/main/resources/db/mysql/initDB.sql)
+    * [Initialization script](src/main/resources/db/mysql/initDB.sql)
     * [Populate script](src/main/resources/db/mysql/populateDB.sql)
 * H2
-    * [Init table script](src/main/resources/db/h2/initDB.sql)
+    * [Initialization script](src/main/resources/db/h2/initDB.sql)
     * [Populate script](src/main/resources/db/h2/populateDB.sql)
 
 ## Technologies
