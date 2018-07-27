@@ -1,4 +1,4 @@
-package com.qthegamep.bookmanager.test.util;
+package com.qthegamep.bookmanager.testhelper.util;
 
 import lombok.experimental.UtilityClass;
 
@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 @UtilityClass
-public class TestUtil {
+public class IOUtil {
 
     private final InputStream consoleInputStream = System.in;
 
