@@ -6,6 +6,10 @@ cache:
   directories:
   - $HOME/.m2
 
+# Customizing The Build - https://docs.travis-ci.com/user/customizing-the-build/
+script:
+  - mvn clean install -P h2-database -B
+
 # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
 matrix:
   fast_finish: true
