@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS bookmanager;
 DROP TABLE IF EXISTS `bookmanager`.`books`;
 
 CREATE TABLE `bookmanager`.`books` (
-  `ID`         INT          NOT NULL AUTO_INCREMENT,
+  `ID`         INT(10)      NOT NULL AUTO_INCREMENT,
   `NAME`       VARCHAR(255) NOT NULL,
   `AUTHOR`     VARCHAR(255) NOT NULL,
   `PRINT_YEAR` INT(4)       NOT NULL,
