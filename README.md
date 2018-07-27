@@ -11,12 +11,10 @@ In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create
 Take a look at the project [PLAN](PLAN.md). All database setting in the folder [resources/db](src/main/resources/db).
 
 SQL scripts:
-* Initialization script
-    * MySQL
-        * [Initialization script](src/main/resources/db/mysql/initDB.sql)
-    * H2
-        * [Initialization script](src/main/resources/db/h2/initDB.sql)
-* Populate script
+* Initialization scripts
+    * [MySQL initialization script](src/main/resources/db/mysql/initDB.sql)
+    * [H2 initialization script](src/main/resources/db/h2/initDB.sql)
+* Populate scripts
     * [Populate script](src/main/resources/db/populateDB.sql)
 
 ## Technologies
