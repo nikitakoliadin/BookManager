@@ -24,7 +24,7 @@ public class SessionUtil {
      * This method opens the connection to the database.
      *
      * @return connection to the database.
-     * @throws SQLException exception must be processed.
+     * @throws SQLException that must be processed.
      */
     public Connection openConnection() throws SQLException {
         log.info("Preparing to open connection");
@@ -40,7 +40,7 @@ public class SessionUtil {
     /**
      * This method closes the connection to the database if there is open connection or connection isn't closed.
      *
-     * @throws SQLException exception must be processed.
+     * @throws SQLException that must be processed.
      */
     public void closeConnection() throws SQLException {
         log.info("Preparing to close connection");
