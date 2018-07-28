@@ -31,7 +31,7 @@ public class Rules {
             );
 
             className = description.getClassName();
-            results.append(result).append(System.lineSeparator());
+            RESULTS.append(result).append(System.lineSeparator());
             log.info(result);
         }
     };
@@ -44,7 +44,7 @@ public class Rules {
 
         @Override
         protected void before() {
-            results.setLength(0);
+            RESULTS.setLength(0);
         }
 
         @Override
@@ -59,7 +59,7 @@ public class Rules {
                     + System.lineSeparator()
                     + "--------------------------------------------------------------------------------------------------------------------------------------------------------"
                     + System.lineSeparator()
-                    + results
+                    + RESULTS
                     + "--------------------------------------------------------------------------------------------------------------------------------------------------------"
                     + System.lineSeparator()
             );
@@ -85,7 +85,7 @@ public class Rules {
 
     private final Logger log = LoggerFactory.getLogger("TEST_RESULT_LOGGER");
 
-    private final StringBuilder results = new StringBuilder();
+    private final StringBuilder RESULTS = new StringBuilder();
 
     private String className;
 }
