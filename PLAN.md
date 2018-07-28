@@ -41,6 +41,7 @@
                                 * [util](src/test/java/com/qthegamep/bookmanager/testhelper/util)
                                     * [IOUtil.java](src/test/java/com/qthegamep/bookmanager/testhelper/util/IOUtil.java)
                             * [util](src/test/java/com/qthegamep/bookmanager/util)
+                                * [PropertiesUtilTest.java](src/test/java/com/qthegamep/bookmanager/util/PropertiesUtilTest.java)
                                 * [SessionUtilTest.java](src/test/java/com/qthegamep/bookmanager/util/SessionUtilTest.java)
                             * [ApplicationTest.java](src/test/java/com/qthegamep/bookmanager/ApplicationTest.java)
             * [resources](src/test/resources)
