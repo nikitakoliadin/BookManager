@@ -59,3 +59,4 @@
 ## Fix In Future
 
 ## Bugs && Messages
+PropertiesUtil class - getProperty method - NotNull annotation
