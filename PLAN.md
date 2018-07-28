@@ -13,6 +13,7 @@
                             * [exception](src/main/java/com/qthegamep/bookmanager/exception)
                                 * [LoadDBPropertiesException.java](src/main/java/com/qthegamep/bookmanager/exception/LoadDBPropertiesException.java)
                             * [util](src/main/java/com/qthegamep/bookmanager/util)
+                                * [PropertiesUtil.java](src/main/java/com/qthegamep/bookmanager/util/PropertiesUtil.java)
                                 * [SessionUtil.java](src/main/java/com/qthegamep/bookmanager/util/SessionUtil.java)
                             * [Application.java](src/main/java/com/qthegamep/bookmanager/Application.java)
             * [resources](src/main/resources)
