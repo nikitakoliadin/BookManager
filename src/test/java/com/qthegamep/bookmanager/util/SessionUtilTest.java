@@ -46,6 +46,13 @@ public class SessionUtilTest {
     }
 
     @Test
+    public void shouldBeTheSameConnection() throws SQLException {
+        val copyConnection = SessionUtil.openConnection();
+
+        assertThat(connection).isEqualTo(copyConnection);
+    }
+
+    @Test
     public void shouldCloseConnection() throws SQLException {
         SessionUtil.closeConnection();
 
