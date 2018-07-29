@@ -29,6 +29,11 @@ public class SessionUtil {
     public Connection openConnection() throws SQLException {
         log.info("Preparing to open connection");
 
+        if (connection != null && !connection.isClosed()) {
+            log.info("Preparing to open connection was done successful! Connection was not opened because it was already opened");
+            return connection;
+        }
+
         log.info("Database connection parameters: URL={}, USER={}, PASSWORD={}", URL, USER, PASSWORD);
         connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
