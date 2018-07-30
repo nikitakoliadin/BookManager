@@ -93,7 +93,7 @@ public class Rules {
 
                 try (val statement = connection.createStatement()) {
                     statement.executeUpdate("TRUNCATE TABLE BOOKS;");
-                    statement.executeUpdate("ALTER TABLE BOOKS ALTER COLUMN ID RESTART WITH 1");
+                    statement.executeUpdate("ALTER TABLE BOOKS ALTER COLUMN ID RESTART WITH 1;");
                 } finally {
                     SessionUtil.closeConnection();
                 }
