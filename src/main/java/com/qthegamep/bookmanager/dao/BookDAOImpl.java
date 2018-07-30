@@ -44,9 +44,10 @@ public class BookDAOImpl implements BookDAO {
 
             val count = preparedStatement.executeUpdate();
             log.info("Preparing to add entity to the database was done successful! Count: [{}]", count);
+        } finally {
+            SessionUtil.closeConnection();
         }
 
-        SessionUtil.closeConnection();
         log.info("Preparing to execute CREATE CRUD operation was done successful");
     }
 
