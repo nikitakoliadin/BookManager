@@ -1,6 +1,7 @@
 package com.qthegamep.bookmanager.testhelper.rule;
 
 import com.qthegamep.bookmanager.testhelper.util.IOUtil;
+import com.qthegamep.bookmanager.util.SessionUtil;
 
 import lombok.experimental.UtilityClass;
 import lombok.val;
@@ -12,14 +13,18 @@ import org.junit.runner.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class contains all rules that is used in test classes.
+ */
 @UtilityClass
 public class Rules {
 
     /**
      * The constant is used as a rule for calculating of the time spent by a test.
-     * It is used as @Rule JUnit annotation.
+     * It is used with @Rule JUnit annotation.
      */
     public final Stopwatch STOPWATCH_RULE = new Stopwatch() {
 
@@ -37,8 +42,8 @@ public class Rules {
     };
 
     /**
-     * The constant is used as a rule for output results of the class tests.
-     * It is used as @ClassRule JUnit annotation.
+     * The constant is used as a rule for outputting results of the class tests.
+     * It is used with @ClassRule JUnit annotation.
      */
     public final ExternalResource SUMMARY_RULE = new ExternalResource() {
 
@@ -67,8 +72,39 @@ public class Rules {
     };
 
     /**
+     * The constant is used as a rule for resetting database tables before and after each test.
+     * It is used with @Rule JUnit annotation.
+     */
+    public final ExternalResource RESET_DATABASE_RULE = new ExternalResource() {
+
+        @Override
+        protected void before() {
+            resetDatabase();
+        }
+
+        @Override
+        protected void after() {
+            resetDatabase();
+        }
+
+        private void resetDatabase() {
+            try {
+                val connection = SessionUtil.openConnection();
+
+                try (val statement = connection.createStatement()) {
+                    statement.executeUpdate("TRUNCATE TABLE BOOKS;");
+                    statement.executeUpdate("ALTER TABLE BOOKS ALTER COLUMN ID RESTART WITH 1");
+                } finally {
+                    SessionUtil.closeConnection();
+                }
+            } catch (SQLException ignore) {
+            }
+        }
+    };
+
+    /**
      * This constant is used as a rule for configure input and output on the console.
-     * It is used as @Rule JUnit annotation.
+     * It is used with @Rule JUnit annotation.
      */
     public final ExternalResource INPUT_OUTPUT_SETUP_RULE = new ExternalResource() {
 
