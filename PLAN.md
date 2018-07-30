@@ -34,6 +34,8 @@
                 * [com](src/test/java/com)
                     * [qthegamep](src/test/java/com/qthegamep)
                         * [bookmanager](src/test/java/com/qthegamep/bookmanager)
+                            * [dao](src/test/java/com/qthegamep/bookmanager/dao)
+                                * [BookDAOImplTest.java](src/test/java/com/qthegamep/bookmanager/dao/BookDAOImplTest.java)
                             * [entity](src/test/java/com/qthegamep/bookmanager/entity)
                                 * [BookTest.java](src/test/java/com/qthegamep/bookmanager/entity/BookTest.java)
                             * [exception](src/test/java/com/qthegamep/bookmanager/exception)
