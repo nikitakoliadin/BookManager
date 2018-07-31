@@ -1,7 +1,7 @@
 package com.qthegamep.bookmanager.testhelper.rule;
 
 import com.qthegamep.bookmanager.testhelper.util.IOUtil;
-import com.qthegamep.bookmanager.util.SessionUtil;
+import com.qthegamep.bookmanager.testhelper.util.ResetDatabaseUtil;
 
 import lombok.experimental.UtilityClass;
 import lombok.val;
@@ -13,7 +13,6 @@ import org.junit.runner.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -79,26 +78,12 @@ public class Rules {
 
         @Override
         protected void before() {
-            resetDatabase();
+            ResetDatabaseUtil.resetDatabase();
         }
 
         @Override
         protected void after() {
-            resetDatabase();
-        }
-
-        private void resetDatabase() {
-            try {
-                val connection = SessionUtil.openConnection();
-
-                try (val statement = connection.createStatement()) {
-                    statement.executeUpdate("TRUNCATE TABLE BOOKS;");
-                    statement.executeUpdate("ALTER TABLE BOOKS ALTER COLUMN ID RESTART WITH 1;");
-                } finally {
-                    SessionUtil.closeConnection();
-                }
-            } catch (SQLException ignore) {
-            }
+            ResetDatabaseUtil.resetDatabase();
         }
     };
 
