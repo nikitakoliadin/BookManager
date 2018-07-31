@@ -5,6 +5,9 @@ import lombok.experimental.UtilityClass;
 import java.io.InputStream;
 import java.io.PrintStream;
 
+/**
+ * This class is an utility helper class that is responsible for setting input and output to console.
+ */
 @UtilityClass
 public class IOUtil {
 
