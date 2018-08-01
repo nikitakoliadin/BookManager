@@ -217,7 +217,7 @@ public class BookTest {
     public void shouldWorkHashCodeCorrectly() {
         val actual = book.hashCode();
 
-        int expected = 1;
+        var expected = 1;
         expected = expected * 59 + book.getId();
         val name = book.getName();
         expected = expected * 59 + (name == null ? 43 : name.hashCode());
