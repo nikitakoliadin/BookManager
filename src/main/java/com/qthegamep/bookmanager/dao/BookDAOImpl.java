@@ -45,7 +45,6 @@ public class BookDAOImpl implements BookDAO {
             preparedStatement.setString(2, book.getAuthor());
             preparedStatement.setInt(3, book.getPrintYear());
             preparedStatement.setBoolean(4, book.isRead());
-
             log.info("Preparing sql query was done successful! Preparing to add entity to the database");
 
             preparedStatement.executeUpdate();
@@ -86,8 +85,7 @@ public class BookDAOImpl implements BookDAO {
                 preparedStatement.setString(2, book.getAuthor());
                 preparedStatement.setInt(3, book.getPrintYear());
                 preparedStatement.setBoolean(4, book.isRead());
-
-                log.info("Preparing sql query was done successful! Preparing to add entity to the database");
+                log.info("Preparing sql query to this entity was done successful! Preparing to add entity to the database");
 
                 preparedStatement.executeUpdate();
                 log.info("Preparing to add entity to the database was done successful");
@@ -108,7 +106,45 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public Book getById(int id) throws SQLException {
-        return null;
+        log.info("Preparing to execute READ CRUD operation");
+
+        val book = new Book();
+
+        val connection = SessionUtil.openConnection();
+
+        val sql = "SELECT * FROM BOOKS WHERE ID = ?;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query");
+
+            preparedStatement.setInt(1, id);
+            log.info("Preparing sql query was done successful! Preparing to get entity from the database");
+
+            val resultSet = preparedStatement.executeQuery();
+            log.info("Preparing to get entity from the database was done successful! Preparing to parse entity");
+
+            book.setId(resultSet.getInt("ID"));
+            book.setName(resultSet.getString("NAME"));
+            book.setAuthor(resultSet.getString("AUTHOR"));
+            book.setPrintYear(resultSet.getInt("PRINT_YEAR"));
+            book.setRead(resultSet.getBoolean("IS_READ"));
+
+            log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                    book.getId(),
+                    book.getName(),
+                    book.getAuthor(),
+                    book.getPrintYear(),
+                    book.isRead()
+            );
+
+            log.info("Preparing to parse entity was done successful");
+        }
+
+        log.info("Preparing to execute READ CRUD operation was done successful");
+
+        return book;
     }
 
     /**
