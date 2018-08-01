@@ -48,8 +48,8 @@ public class BookDAOImpl implements BookDAO {
 
             log.info("Preparing sql query was done successful! Preparing to add entity to the database");
 
-            val count = preparedStatement.executeUpdate();
-            log.info("Preparing to add entity to the database was done successful! Count: [{}]", count);
+            preparedStatement.executeUpdate();
+            log.info("Preparing to add entity to the database was done successful");
         }
 
         log.info("Preparing to execute CREATE CRUD operation was done successful");
@@ -74,8 +74,6 @@ public class BookDAOImpl implements BookDAO {
         try (val preparedStatement = connection.prepareStatement(sql)) {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query for each entity");
 
-            var count = 0;
-
             for (val book : books) {
                 log.info("Entity: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
                         book.getName(),
@@ -91,11 +89,11 @@ public class BookDAOImpl implements BookDAO {
 
                 log.info("Preparing sql query was done successful! Preparing to add entity to the database");
 
-                count += preparedStatement.executeUpdate();
+                preparedStatement.executeUpdate();
                 log.info("Preparing to add entity to the database was done successful");
             }
 
-            log.info("All entities was added to the database! Count: [{}]", count);
+            log.info("All entities was added to the database");
         }
 
         log.info("Preparing to execute CREATE CRUD operation was done successful");
