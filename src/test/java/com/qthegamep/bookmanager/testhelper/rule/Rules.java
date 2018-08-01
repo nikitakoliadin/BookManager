@@ -1,7 +1,7 @@
 package com.qthegamep.bookmanager.testhelper.rule;
 
 import com.qthegamep.bookmanager.testhelper.util.IOUtil;
-import com.qthegamep.bookmanager.testhelper.util.ResetDatabaseUtil;
+import com.qthegamep.bookmanager.testhelper.util.ResetDBUtil;
 
 import lombok.experimental.UtilityClass;
 import lombok.val;
@@ -78,12 +78,12 @@ public class Rules {
 
         @Override
         protected void before() {
-            ResetDatabaseUtil.resetDatabase();
+            ResetDBUtil.resetDatabase();
         }
 
         @Override
         protected void after() {
-            ResetDatabaseUtil.resetDatabase();
+            ResetDBUtil.resetDatabase();
         }
     };
 
