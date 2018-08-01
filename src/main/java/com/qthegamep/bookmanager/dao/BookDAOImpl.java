@@ -35,6 +35,13 @@ public class BookDAOImpl implements BookDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query");
 
+            log.info("Entity: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                    book.getName(),
+                    book.getAuthor(),
+                    book.getPrintYear(),
+                    book.isRead()
+            );
+
             preparedStatement.setString(1, book.getName());
             preparedStatement.setString(2, book.getAuthor());
             preparedStatement.setInt(3, book.getPrintYear());
@@ -57,7 +64,42 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public void addAll(List<? extends Book> books) throws SQLException {
+        log.info("Preparing to execute CREATE CRUD operation");
 
+        val connection = SessionUtil.openConnection();
+
+        val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query for each entity");
+
+            var count = 0;
+
+            for (Book book : books) {
+                log.info("Entity: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                        book.getName(),
+                        book.getAuthor(),
+                        book.getPrintYear(),
+                        book.isRead()
+                );
+
+                preparedStatement.setString(1, book.getName());
+                preparedStatement.setString(2, book.getAuthor());
+                preparedStatement.setInt(3, book.getPrintYear());
+                preparedStatement.setBoolean(4, book.isRead());
+
+                log.info("Preparing sql query was done successful! Preparing to add entity to the database");
+
+                count += preparedStatement.executeUpdate();
+                log.info("Preparing to add entity to the database was done successful");
+            }
+
+            log.info("All entities was added to the database! Count: [{}]", count);
+        }
+
+        log.info("Preparing to execute CREATE CRUD operation was done successful");
     }
 
     /**
