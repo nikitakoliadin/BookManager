@@ -125,11 +125,15 @@ public class BookDAOImpl implements BookDAO {
             val resultSet = preparedStatement.executeQuery();
             log.info("Preparing to get entity from the database was done successful! Preparing to parse entity");
 
-            book.setId(resultSet.getInt("ID"));
-            book.setName(resultSet.getString("NAME"));
-            book.setAuthor(resultSet.getString("AUTHOR"));
-            book.setPrintYear(resultSet.getInt("PRINT_YEAR"));
-            book.setRead(resultSet.getBoolean("IS_READ"));
+            if (resultSet.next()) {
+                book.setId(resultSet.getInt("ID"));
+                book.setName(resultSet.getString("NAME"));
+                book.setAuthor(resultSet.getString("AUTHOR"));
+                book.setPrintYear(resultSet.getInt("PRINT_YEAR"));
+                book.setRead(resultSet.getBoolean("IS_READ"));
+            } else {
+                log.info("Will be returned empty entity");
+            }
 
             log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
                     book.getId(),
