@@ -30,19 +30,29 @@ public class BookDAOImplTest {
     public ExternalResource resetDatabaseRule = Rules.RESET_DATABASE_RULE;
 
     private BookDAO bookDAO;
-    private Book book;
+
+    private Book firstBook;
+    private Book secondBook;
 
     @Before
     public void setUp() {
         bookDAO = new BookDAOImpl();
 
-        book = new Book();
+        firstBook = new Book();
 
-        book.setId(1);
-        book.setName("test book");
-        book.setAuthor("test author");
-        book.setPrintYear(2000);
-        book.setRead(false);
+        firstBook.setId(1);
+        firstBook.setName("test firstBook");
+        firstBook.setAuthor("test firstAuthor");
+        firstBook.setPrintYear(2000);
+        firstBook.setRead(false);
+
+        secondBook = new Book();
+
+        secondBook.setId(2);
+        secondBook.setName("test secondBook");
+        secondBook.setAuthor("test secondAuthor");
+        secondBook.setPrintYear(2010);
+        secondBook.setRead(true);
     }
 
     @Test
@@ -64,12 +74,44 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldAddEntityToTheDatabaseCorrectly() throws SQLException {
-        bookDAO.add(book);
+        bookDAO.add(firstBook);
 
-        val books = getAllEntitiesFromDatabase();
+        var getBooks = getAllEntitiesFromDatabase();
 
-        assertThat(books).isNotNull().hasSize(1);
-        assertThat(books).contains(book);
+        assertThat(getBooks).isNotNull().hasSize(1);
+        assertThat(getBooks).contains(firstBook);
+
+        bookDAO.add(secondBook);
+
+        getBooks = getAllEntitiesFromDatabase();
+
+        assertThat(getBooks).isNotNull().hasSize(2);
+        assertThat(getBooks).contains(firstBook, secondBook);
+    }
+
+    @Test
+    public void shouldAddEntitiesToTheDatabaseCorrectly() throws SQLException {
+        val books = List.of(firstBook, secondBook);
+
+        bookDAO.addAll(books);
+
+        var getBooks = getAllEntitiesFromDatabase();
+
+        assertThat(getBooks).isNotNull().hasSize(2);
+        assertThat(getBooks).contains(firstBook, secondBook);
+
+        bookDAO.addAll(books);
+
+        getBooks = getAllEntitiesFromDatabase();
+
+        val thirdBook = firstBook;
+        val fourthBook = secondBook;
+
+        thirdBook.setId(3);
+        fourthBook.setId(4);
+
+        assertThat(getBooks).isNotNull().hasSize(4);
+        assertThat(getBooks).contains(firstBook, secondBook, thirdBook, fourthBook);
     }
 
     private List<Book> getAllEntitiesFromDatabase() throws SQLException {
