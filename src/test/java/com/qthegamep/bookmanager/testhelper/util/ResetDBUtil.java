@@ -37,7 +37,7 @@ public class ResetDBUtil {
     }
 
     private String getResetDatabaseSqlQuery() {
-        String resetDatabaseSqlQuery = null;
+        var resetDatabaseSqlQuery = "";
 
         try {
             val bytes = Files.readAllBytes(Paths.get(ClassLoader.getSystemResource("initDB.sql").toURI()));
