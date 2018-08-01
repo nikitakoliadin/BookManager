@@ -34,6 +34,8 @@ public class BookDAOImplTest {
     private Book firstBook;
     private Book secondBook;
 
+    private List<Book> books;
+
     @Before
     public void setUp() throws SQLException {
         connection = SessionUtil.openConnection();
@@ -55,6 +57,8 @@ public class BookDAOImplTest {
         secondBook.setAuthor("test secondAuthor");
         secondBook.setPrintYear(2010);
         secondBook.setRead(true);
+
+        books = List.of(firstBook, secondBook);
     }
 
     @After
@@ -83,21 +87,21 @@ public class BookDAOImplTest {
     public void shouldAddEntityToTheDatabaseCorrectly() throws SQLException {
         bookDAO.add(firstBook);
 
-        var getBooks = getAllEntitiesFromDatabase();
+        var allEntitiesFromDatabase = getAllEntitiesFromDatabase();
 
-        assertThat(getBooks).isNotNull().hasSize(1);
-        assertThat(getBooks).contains(firstBook);
+        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(1);
+        assertThat(allEntitiesFromDatabase).contains(firstBook);
 
         bookDAO.add(secondBook);
 
-        getBooks = getAllEntitiesFromDatabase();
+        allEntitiesFromDatabase = getAllEntitiesFromDatabase();
 
-        assertThat(getBooks).isNotNull().hasSize(2);
-        assertThat(getBooks).contains(firstBook, secondBook);
+        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(2);
+        assertThat(allEntitiesFromDatabase).contains(firstBook, secondBook);
     }
 
     @Test
-    public void shouldBeOpenConnectionAfterAddEntityMethod() throws SQLException {
+    public void shouldBeOpenConnectionAfterAddMethod() throws SQLException {
         bookDAO.add(firstBook);
 
         assertThat(connection.isClosed()).isFalse();
@@ -105,18 +109,16 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldAddAllEntitiesToTheDatabaseCorrectly() throws SQLException {
-        val books = List.of(firstBook, secondBook);
+        bookDAO.addAll(books);
+
+        var allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+
+        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(2);
+        assertThat(allEntitiesFromDatabase).contains(firstBook, secondBook);
 
         bookDAO.addAll(books);
 
-        var getBooks = getAllEntitiesFromDatabase();
-
-        assertThat(getBooks).isNotNull().hasSize(2);
-        assertThat(getBooks).contains(firstBook, secondBook);
-
-        bookDAO.addAll(books);
-
-        getBooks = getAllEntitiesFromDatabase();
+        allEntitiesFromDatabase = getAllEntitiesFromDatabase();
 
         val thirdBook = firstBook;
         val fourthBook = secondBook;
@@ -124,15 +126,44 @@ public class BookDAOImplTest {
         thirdBook.setId(3);
         fourthBook.setId(4);
 
-        assertThat(getBooks).isNotNull().hasSize(4);
-        assertThat(getBooks).contains(firstBook, secondBook, thirdBook, fourthBook);
+        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(4);
+        assertThat(allEntitiesFromDatabase).contains(firstBook, secondBook, thirdBook, fourthBook);
     }
 
     @Test
-    public void shouldBeOpenConnectionAfterAddAllEntitiesMethod() throws SQLException {
-        val books = List.of(firstBook, secondBook);
-
+    public void shouldBeOpenConnectionAfterAddAllMethod() throws SQLException {
         bookDAO.addAll(books);
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldGetByIdEntityFromTheDatabaseCorrectly() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        val firstBook = bookDAO.getById(1);
+        val secondBook = bookDAO.getById(2);
+
+        assertThat(firstBook).isEqualTo(this.firstBook);
+        assertThat(secondBook).isEqualTo(this.secondBook);
+
+        val allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+
+        assertThat(allEntitiesFromDatabase).hasSize(2).contains(this.firstBook, this.secondBook);
+    }
+
+    @Test
+    public void shouldGetByIdMethodReturnEmptyEntityIfIdNotExist() throws SQLException {
+        val emptyBook = bookDAO.getById(1);
+
+        val expectedEmptyBook = new Book();
+
+        assertThat(emptyBook).isEqualTo(expectedEmptyBook);
+    }
+
+    @Test
+    public void shouldBeOpenConnectionAfterGetByIdMethod() throws SQLException {
+        bookDAO.getById(1);
 
         assertThat(connection.isClosed()).isFalse();
     }
@@ -170,5 +201,20 @@ public class BookDAOImplTest {
         }
 
         return bookList;
+    }
+
+    private void addAllEntitiesToTheDatabase(List<? extends Book> books) throws SQLException {
+        val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
+
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            for (val book : books) {
+                preparedStatement.setString(1, book.getName());
+                preparedStatement.setString(2, book.getAuthor());
+                preparedStatement.setInt(3, book.getPrintYear());
+                preparedStatement.setBoolean(4, book.isRead());
+
+                preparedStatement.executeUpdate();
+            }
+        }
     }
 }
