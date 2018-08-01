@@ -6,7 +6,6 @@ import com.qthegamep.bookmanager.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class BookDAOImpl implements BookDAO {
         log.info("SQL query: [{}]", sql);
 
         log.info("Preparing to create prepared statement");
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (val preparedStatement = connection.prepareStatement(sql)) {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query");
 
             log.info("Entity: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
@@ -72,12 +71,12 @@ public class BookDAOImpl implements BookDAO {
         log.info("SQL query: [{}]", sql);
 
         log.info("Preparing to create prepared statement");
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (val preparedStatement = connection.prepareStatement(sql)) {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query for each entity");
 
             var count = 0;
 
-            for (Book book : books) {
+            for (val book : books) {
                 log.info("Entity: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
                         book.getName(),
                         book.getAuthor(),
