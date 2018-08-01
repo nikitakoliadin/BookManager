@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * This class is an utility helper class that is responsible for resetting database to empty state.
  */
 @UtilityClass
-public class ResetDatabaseUtil {
+public class ResetDBUtil {
 
     private final String RESET_DATABASE_SQL_QUERY = getResetDatabaseSqlQuery();
 
