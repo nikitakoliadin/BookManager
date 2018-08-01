@@ -5,14 +5,12 @@ import com.qthegamep.bookmanager.testhelper.rule.Rules;
 import com.qthegamep.bookmanager.util.SessionUtil;
 
 import lombok.val;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import org.junit.rules.ExternalResource;
 import org.junit.rules.Stopwatch;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +27,17 @@ public class BookDAOImplTest {
     @Rule
     public ExternalResource resetDatabaseRule = Rules.RESET_DATABASE_RULE;
 
+    private Connection connection;
+
     private BookDAO bookDAO;
 
     private Book firstBook;
     private Book secondBook;
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
+        connection = SessionUtil.openConnection();
+
         bookDAO = new BookDAOImpl();
 
         firstBook = new Book();
@@ -53,6 +55,11 @@ public class BookDAOImplTest {
         secondBook.setAuthor("test secondAuthor");
         secondBook.setPrintYear(2010);
         secondBook.setRead(true);
+    }
+
+    @After
+    public void tearDown() throws SQLException {
+        SessionUtil.closeConnection();
     }
 
     @Test
@@ -90,7 +97,14 @@ public class BookDAOImplTest {
     }
 
     @Test
-    public void shouldAddEntitiesToTheDatabaseCorrectly() throws SQLException {
+    public void shouldBeOpenConnectionAfterAddEntityMethod() throws SQLException {
+        bookDAO.add(firstBook);
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldAddAllEntitiesToTheDatabaseCorrectly() throws SQLException {
         val books = List.of(firstBook, secondBook);
 
         bookDAO.addAll(books);
@@ -114,10 +128,31 @@ public class BookDAOImplTest {
         assertThat(getBooks).contains(firstBook, secondBook, thirdBook, fourthBook);
     }
 
+    @Test
+    public void shouldBeOpenConnectionAfterAddAllEntitiesMethod() throws SQLException {
+        val books = List.of(firstBook, secondBook);
+
+        bookDAO.addAll(books);
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenCallAddEntityMethodWithNullParameter() {
+        assertThatNullPointerException().isThrownBy(
+                () -> bookDAO.add(null)
+        ).withMessage(null);
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenCallAddAllEntitiesMethodWithNullParameter() {
+        assertThatNullPointerException().isThrownBy(
+                () -> bookDAO.addAll(null)
+        ).withMessage(null);
+    }
+
     private List<Book> getAllEntitiesFromDatabase() throws SQLException {
         val bookList = new ArrayList<Book>();
-
-        val connection = SessionUtil.openConnection();
 
         try (val statement = connection.createStatement();
              val resultSet = statement.executeQuery("SELECT * FROM BOOKS;")) {
@@ -132,8 +167,6 @@ public class BookDAOImplTest {
 
                 bookList.add(book);
             }
-        } finally {
-            SessionUtil.closeConnection();
         }
 
         return bookList;
