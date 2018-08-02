@@ -187,7 +187,7 @@ public class BookDAOImplTest {
     public void shouldGetByNameMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getByName("test firstBook");
 
-        assertThat(books).isNotNull().hasSize(0);
+        assertThat(books).isNotNull().isEmpty();
     }
 
     @Test
@@ -216,7 +216,7 @@ public class BookDAOImplTest {
     public void shouldGetByAuthorMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getByAuthor("test firstAuthor");
 
-        assertThat(books).isNotNull().hasSize(0);
+        assertThat(books).isNotNull().isEmpty();
     }
 
     @Test
@@ -245,7 +245,7 @@ public class BookDAOImplTest {
     public void shouldGetByPrintYearMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getByPrintYear(2000);
 
-        assertThat(books).isNotNull().hasSize(0);
+        assertThat(books).isNotNull().isEmpty();
     }
 
     @Test
@@ -274,7 +274,7 @@ public class BookDAOImplTest {
     public void shouldGetByIsReadMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getByIsRead(false);
 
-        assertThat(books).isNotNull().hasSize(0);
+        assertThat(books).isNotNull().isEmpty();
     }
 
     @Test
@@ -310,7 +310,7 @@ public class BookDAOImplTest {
     public void shouldGetAllMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getAll();
 
-        assertThat(books).isNotNull().hasSize(0);
+        assertThat(books).isNotNull().isEmpty();
     }
 
     @Test
@@ -456,6 +456,34 @@ public class BookDAOImplTest {
     public void shouldThrowNullPointerExceptionWhenCallAddAllMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.addAll(null)
+        ).withMessage(null);
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenCallUpdateMethodWithNullParameter() {
+        assertThatNullPointerException().isThrownBy(
+                () -> bookDAO.update(null)
+        ).withMessage(null);
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenCallUpdateAllMethodWithNullParameter() {
+        assertThatNullPointerException().isThrownBy(
+                () -> bookDAO.updateAll(null)
+        ).withMessage(null);
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenCallRemoveMethodWithNullParameter() {
+        assertThatNullPointerException().isThrownBy(
+                () -> bookDAO.remove(null)
+        ).withMessage(null);
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenCallRemoveAllMethodWithNullParameter() {
+        assertThatNullPointerException().isThrownBy(
+                () -> bookDAO.removeAll(null)
         ).withMessage(null);
     }
 
