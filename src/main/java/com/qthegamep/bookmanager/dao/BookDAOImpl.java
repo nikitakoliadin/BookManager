@@ -182,7 +182,6 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to get entities from the database by name was done successful! Preparing to parse entities");
 
             loadEntitiesToList(books, resultSet);
-
             log.info("Preparing to parse entities was done successful");
         }
 
@@ -220,7 +219,6 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to get entities from the database by author was done successful! Preparing to parse entities");
 
             loadEntitiesToList(books, resultSet);
-
             log.info("Preparing to parse entities was done successful");
         }
 
