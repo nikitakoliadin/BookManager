@@ -169,14 +169,43 @@ public class BookDAOImplTest {
     }
 
     @Test
-    public void shouldThrowNullPointerExceptionWhenCallAddEntityMethodWithNullParameter() {
+    public void shouldGetByNameEntitiesFromTheDatabaseCorrectly() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        val firstListBooks = bookDAO.getByName("test firstBook");
+
+        assertThat(firstListBooks).isNotNull().hasSize(1).contains(firstBook);
+
+        addAllEntitiesToTheDatabase(books);
+
+        val secondListBooks = bookDAO.getByName("test secondBook");
+
+        assertThat(secondListBooks).isNotNull().hasSize(2).contains(secondBook);
+    }
+
+    @Test
+    public void shouldGetByNameMethodReturnEntitiesListCorrectly() throws SQLException {
+        val books = bookDAO.getByName("test firstBook");
+
+        assertThat(books).isNotNull().hasSize(0);
+    }
+
+    @Test
+    public void shouldBeOpenConnectionAfterGetByNameMethod() throws SQLException {
+        bookDAO.getByName("test firstBook");
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenCallAddMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.add(null)
         ).withMessage(null);
     }
 
     @Test
-    public void shouldThrowNullPointerExceptionWhenCallAddAllEntitiesMethodWithNullParameter() {
+    public void shouldThrowNullPointerExceptionWhenCallAddAllMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.addAll(null)
         ).withMessage(null);
