@@ -256,6 +256,35 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldGetByIsReadEntitiesFromTheDatabaseCorrectly() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        val firstListBooks = bookDAO.getByIsRead(false);
+
+        assertThat(firstListBooks).isNotNull().hasSize(1).contains(firstBook);
+
+        addAllEntitiesToTheDatabase(books);
+
+        val secondListBooks = bookDAO.getByIsRead(true);
+
+        assertThat(secondListBooks).isNotNull().hasSize(2).contains(secondBook);
+    }
+
+    @Test
+    public void shouldGetByIsReadMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
+        val books = bookDAO.getByIsRead(false);
+
+        assertThat(books).isNotNull().hasSize(0);
+    }
+
+    @Test
+    public void shouldBeOpenConnectionAfterGetByIsReadMethod() throws SQLException {
+        bookDAO.getByIsRead(false);
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
     public void shouldThrowNullPointerExceptionWhenCallAddMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.add(null)
