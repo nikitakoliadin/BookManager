@@ -136,7 +136,7 @@ public class BookDAOImpl implements BookDAO {
                 log.info("Will be returned empty entity");
             }
 
-            log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+            log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {} - was gotten",
                     book.getId(),
                     book.getName(),
                     book.getAuthor(),
@@ -175,10 +175,10 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query! NAME = {}", name);
 
             preparedStatement.setString(1, name);
-            log.info("Preparing sql query was done successful! Preparing to get entity from the database by name");
+            log.info("Preparing sql query was done successful! Preparing to get entities from the database by name");
 
             val resultSet = preparedStatement.executeQuery();
-            log.info("Preparing to get entity from the database by name was done successful! Preparing to parse entities");
+            log.info("Preparing to get entities from the database by name was done successful! Preparing to parse entities");
 
             while (resultSet.next()) {
                 val book = new Book();
@@ -191,7 +191,7 @@ public class BookDAOImpl implements BookDAO {
 
                 books.add(book);
 
-                log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {} - was gotten",
                         book.getId(),
                         book.getName(),
                         book.getAuthor(),
