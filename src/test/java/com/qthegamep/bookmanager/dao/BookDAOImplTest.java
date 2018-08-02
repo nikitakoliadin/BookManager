@@ -78,26 +78,26 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldBeEmptyDatabaseBeforeEachTest() throws SQLException {
-        val allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+        val allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromDatabase).isEmpty();
+        assertThat(allEntitiesFromTheDatabase).isEmpty();
     }
 
     @Test
     public void shouldAddEntityToTheDatabaseCorrectly() throws SQLException {
         bookDAO.add(firstBook);
 
-        var allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(1);
-        assertThat(allEntitiesFromDatabase).contains(firstBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1);
+        assertThat(allEntitiesFromTheDatabase).contains(firstBook);
 
         bookDAO.add(secondBook);
 
-        allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(2);
-        assertThat(allEntitiesFromDatabase).contains(firstBook, secondBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
+        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook);
     }
 
     @Test
@@ -111,14 +111,14 @@ public class BookDAOImplTest {
     public void shouldAddAllEntitiesToTheDatabaseCorrectly() throws SQLException {
         bookDAO.addAll(books);
 
-        var allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(2);
-        assertThat(allEntitiesFromDatabase).contains(firstBook, secondBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
+        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook);
 
         bookDAO.addAll(books);
 
-        allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
         val thirdBook = firstBook;
         val fourthBook = secondBook;
@@ -126,8 +126,8 @@ public class BookDAOImplTest {
         thirdBook.setId(3);
         fourthBook.setId(4);
 
-        assertThat(allEntitiesFromDatabase).isNotNull().hasSize(4);
-        assertThat(allEntitiesFromDatabase).contains(firstBook, secondBook, thirdBook, fourthBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4);
+        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook, thirdBook, fourthBook);
     }
 
     @Test
@@ -147,9 +147,9 @@ public class BookDAOImplTest {
         assertThat(firstBook).isEqualTo(this.firstBook);
         assertThat(secondBook).isEqualTo(this.secondBook);
 
-        val allEntitiesFromDatabase = getAllEntitiesFromDatabase();
+        val allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromDatabase).hasSize(2).contains(this.firstBook, this.secondBook);
+        assertThat(allEntitiesFromTheDatabase).hasSize(2).contains(this.firstBook, this.secondBook);
     }
 
     @Test
@@ -285,6 +285,42 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldGetAllEntitiesFromTheDatabaseCorrectly() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        var allEntitiesFromTheDatabase = bookDAO.getAll();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        addAllEntitiesToTheDatabase(books);
+
+        allEntitiesFromTheDatabase = bookDAO.getAll();
+
+        val thirdBook = firstBook;
+        val fourthBook = secondBook;
+
+        thirdBook.setId(3);
+        fourthBook.setId(4);
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4);
+        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook, thirdBook, fourthBook);
+    }
+
+    @Test
+    public void shouldGetAllMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
+        val books = bookDAO.getAll();
+
+        assertThat(books).isNotNull().hasSize(0);
+    }
+
+    @Test
+    public void shouldBeOpenConnectionAfterGetAllMethod() throws SQLException {
+        bookDAO.getAll();
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
     public void shouldThrowNullPointerExceptionWhenCallAddMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.add(null)
@@ -298,7 +334,7 @@ public class BookDAOImplTest {
         ).withMessage(null);
     }
 
-    private List<Book> getAllEntitiesFromDatabase() throws SQLException {
+    private List<Book> getAllEntitiesFromTheDatabase() throws SQLException {
         val bookList = new ArrayList<Book>();
 
         try (val statement = connection.createStatement();
