@@ -181,7 +181,7 @@ public class BookDAOImpl implements BookDAO {
             val resultSet = preparedStatement.executeQuery();
             log.info("Preparing to get entities from the database by name was done successful! Preparing to parse entities");
 
-            loadEntitiesToList(books, resultSet);
+            loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
         }
 
@@ -218,7 +218,7 @@ public class BookDAOImpl implements BookDAO {
             val resultSet = preparedStatement.executeQuery();
             log.info("Preparing to get entities from the database by author was done successful! Preparing to parse entities");
 
-            loadEntitiesToList(books, resultSet);
+            loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
         }
 
@@ -236,7 +236,32 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public List<Book> getByPrintYear(int printYear) throws SQLException {
-        return null;
+        log.info("Preparing to execute READ CRUD operation");
+
+        val books = new ArrayList<Book>();
+
+        val connection = SessionUtil.openConnection();
+
+        val sql = "SELECT * FROM BOOKS WHERE PRINT_YEAR = ?;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query! PRINT_YEAR = {}", printYear);
+
+            preparedStatement.setInt(1, printYear);
+            log.info("Preparing sql query was done successful! Preparing to get entities from the database by print year");
+
+            val resultSet = preparedStatement.executeQuery();
+            log.info("Preparing to get entities from the database by print year was done successful! Preparing to parse entities");
+
+            loadEntitiesToListFromResultSet(books, resultSet);
+            log.info("Preparing to parse entities was done successful");
+        }
+
+        log.info("Preparing to execute READ CRUD operation was done successful");
+
+        return books;
     }
 
     /**
@@ -306,7 +331,7 @@ public class BookDAOImpl implements BookDAO {
 
     }
 
-    private void loadEntitiesToList(ArrayList<? super Book> books, ResultSet resultSet) throws SQLException {
+    private void loadEntitiesToListFromResultSet(ArrayList<? super Book> books, ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             val book = new Book();
 
