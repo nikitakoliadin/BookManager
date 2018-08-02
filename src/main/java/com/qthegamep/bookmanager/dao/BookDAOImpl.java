@@ -35,7 +35,7 @@ public class BookDAOImpl implements BookDAO {
         try (val preparedStatement = connection.prepareStatement(sql)) {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query");
 
-            log.info("Entity: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+            log.info("Entity to add: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
                     book.getName(),
                     book.getAuthor(),
                     book.getPrintYear(),
@@ -75,7 +75,7 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query for each entity");
 
             for (val book : books) {
-                log.info("Entity: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                log.info("Entity to add: NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
                         book.getName(),
                         book.getAuthor(),
                         book.getPrintYear(),
@@ -118,7 +118,7 @@ public class BookDAOImpl implements BookDAO {
 
         log.info("Preparing to create prepared statement");
         try (val preparedStatement = connection.prepareStatement(sql)) {
-            log.info("Preparing to create prepared statement was done successful! Preparing sql query");
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query! ID = {}", id);
 
             preparedStatement.setInt(1, id);
             log.info("Preparing sql query was done successful! Preparing to get entity from the database by id");
@@ -172,7 +172,7 @@ public class BookDAOImpl implements BookDAO {
 
         log.info("Preparing to create prepared statement");
         try (val preparedStatement = connection.prepareStatement(sql)) {
-            log.info("Preparing to create prepared statement was done successful! Preparing sql query");
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query! NAME = {}", name);
 
             preparedStatement.setString(1, name);
             log.info("Preparing sql query was done successful! Preparing to get entity from the database by name");
