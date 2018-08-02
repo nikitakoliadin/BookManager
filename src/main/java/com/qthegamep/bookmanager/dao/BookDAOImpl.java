@@ -464,7 +464,37 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public void removeAll(List<? extends Book> books) throws SQLException {
+        log.info("Preparing to execute DELETE CRUD operation");
 
+        val connection = SessionUtil.openConnection();
+
+        val sql = "DELETE FROM BOOKS WHERE ID = ?;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query for each entity");
+
+            for (val book : books) {
+                log.info("Entity to delete: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                        book.getId(),
+                        book.getName(),
+                        book.getAuthor(),
+                        book.getPrintYear(),
+                        book.isRead()
+                );
+
+                preparedStatement.setInt(1, book.getId());
+                log.info("Preparing sql query was done successful! Preparing to delete entity from the database");
+
+                preparedStatement.executeUpdate();
+                log.info("Preparing to delete entity from the database was done successful");
+            }
+
+            log.info("All entities was deleted from the database");
+        }
+
+        log.info("Preparing to execute DELETE CRUD operation was done successful");
     }
 
     private void loadEntitiesToListFromResultSet(ArrayList<? super Book> books, ResultSet resultSet) throws SQLException {
