@@ -355,6 +355,44 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldUpdateAllEntitiesInTheDatabaseCorrectly() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        firstBook.setName("shouldBeUpdated");
+        firstBook.setAuthor("shouldBeUpdated");
+        firstBook.setPrintYear(1111);
+        firstBook.setRead(true);
+
+        secondBook.setName("shouldBeUpdated");
+        secondBook.setAuthor("shouldBeUpdated");
+        secondBook.setPrintYear(1111);
+        secondBook.setRead(false);
+
+        bookDAO.updateAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        firstBook.setRead(false);
+
+        secondBook.setRead(true);
+
+        bookDAO.updateAll(books);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+    }
+
+    @Test
+    public void shouldBeOpenConnectionAfterUpdateAllMethod() throws SQLException {
+        bookDAO.updateAll(books);
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
     public void shouldThrowNullPointerExceptionWhenCallAddMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.add(null)
