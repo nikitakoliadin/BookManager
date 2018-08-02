@@ -9,7 +9,7 @@ import lombok.val;
 import java.util.Properties;
 
 /**
- * This class is aa utility helper class that is responsible for loading properties from the database properties file.
+ * This class is an utility helper class that is responsible for loading properties from the database properties file.
  */
 @Slf4j
 @UtilityClass

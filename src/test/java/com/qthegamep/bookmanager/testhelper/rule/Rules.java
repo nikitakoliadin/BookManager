@@ -1,6 +1,7 @@
 package com.qthegamep.bookmanager.testhelper.rule;
 
 import com.qthegamep.bookmanager.testhelper.util.IOUtil;
+import com.qthegamep.bookmanager.testhelper.util.ResetDBUtil;
 
 import lombok.experimental.UtilityClass;
 import lombok.val;
@@ -14,12 +15,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class contains all rules that is used in test classes.
+ */
 @UtilityClass
 public class Rules {
 
     /**
      * The constant is used as a rule for calculating of the time spent by a test.
-     * It is used as @Rule JUnit annotation.
+     * It is used with @Rule JUnit annotation.
      */
     public final Stopwatch STOPWATCH_RULE = new Stopwatch() {
 
@@ -31,20 +35,20 @@ public class Rules {
             );
 
             className = description.getClassName();
-            results.append(result).append(System.lineSeparator());
+            RESULTS.append(result).append(System.lineSeparator());
             log.info(result);
         }
     };
 
     /**
-     * The constant is used as a rule for output results of the class tests.
-     * It is used as @ClassRule JUnit annotation.
+     * The constant is used as a rule for outputting results of the class tests.
+     * It is used with @ClassRule JUnit annotation.
      */
     public final ExternalResource SUMMARY_RULE = new ExternalResource() {
 
         @Override
         protected void before() {
-            results.setLength(0);
+            RESULTS.setLength(0);
         }
 
         @Override
@@ -59,7 +63,7 @@ public class Rules {
                     + System.lineSeparator()
                     + "--------------------------------------------------------------------------------------------------------------------------------------------------------"
                     + System.lineSeparator()
-                    + results
+                    + RESULTS
                     + "--------------------------------------------------------------------------------------------------------------------------------------------------------"
                     + System.lineSeparator()
             );
@@ -67,8 +71,25 @@ public class Rules {
     };
 
     /**
+     * The constant is used as a rule for resetting database tables before and after each test.
+     * It is used with @Rule JUnit annotation.
+     */
+    public final ExternalResource RESET_DATABASE_RULE = new ExternalResource() {
+
+        @Override
+        protected void before() {
+            ResetDBUtil.resetDatabase();
+        }
+
+        @Override
+        protected void after() {
+            ResetDBUtil.resetDatabase();
+        }
+    };
+
+    /**
      * This constant is used as a rule for configure input and output on the console.
-     * It is used as @Rule JUnit annotation.
+     * It is used with @Rule JUnit annotation.
      */
     public final ExternalResource INPUT_OUTPUT_SETUP_RULE = new ExternalResource() {
 
@@ -85,7 +106,7 @@ public class Rules {
 
     private final Logger log = LoggerFactory.getLogger("TEST_RESULT_LOGGER");
 
-    private final StringBuilder results = new StringBuilder();
+    private final StringBuilder RESULTS = new StringBuilder();
 
     private String className;
 }

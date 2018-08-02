@@ -8,6 +8,9 @@
                 * [com](src/main/java/com)
                     * [qthegamep](src/main/java/com/qthegamep)
                         * [bookmanager](src/main/java/com/qthegamep/bookmanager)
+                            * [dao](src/main/java/com/qthegamep/bookmanager/dao)
+                                * [BookDAO.java](src/main/java/com/qthegamep/bookmanager/dao/BookDAO.java)
+                                * [BookDAOImpl.java](src/main/java/com/qthegamep/bookmanager/dao/BookDAOImpl.java)
                             * [entity](src/main/java/com/qthegamep/bookmanager/entity)
                                 * [Book.java](src/main/java/com/qthegamep/bookmanager/entity/Book.java)
                             * [exception](src/main/java/com/qthegamep/bookmanager/exception)
@@ -31,6 +34,8 @@
                 * [com](src/test/java/com)
                     * [qthegamep](src/test/java/com/qthegamep)
                         * [bookmanager](src/test/java/com/qthegamep/bookmanager)
+                            * [dao](src/test/java/com/qthegamep/bookmanager/dao)
+                                * [BookDAOImplTest.java](src/test/java/com/qthegamep/bookmanager/dao/BookDAOImplTest.java)
                             * [entity](src/test/java/com/qthegamep/bookmanager/entity)
                                 * [BookTest.java](src/test/java/com/qthegamep/bookmanager/entity/BookTest.java)
                             * [exception](src/test/java/com/qthegamep/bookmanager/exception)
@@ -40,6 +45,7 @@
                                     * [Rules.java](src/test/java/com/qthegamep/bookmanager/testhelper/rule/Rules.java)
                                 * [util](src/test/java/com/qthegamep/bookmanager/testhelper/util)
                                     * [IOUtil.java](src/test/java/com/qthegamep/bookmanager/testhelper/util/IOUtil.java)
+                                    * [ResetDBUtil.java](src/test/java/com/qthegamep/bookmanager/testhelper/util/ResetDBUtil.java)
                             * [util](src/test/java/com/qthegamep/bookmanager/util)
                                 * [PropertiesUtilTest.java](src/test/java/com/qthegamep/bookmanager/util/PropertiesUtilTest.java)
                                 * [SessionUtilTest.java](src/test/java/com/qthegamep/bookmanager/util/SessionUtilTest.java)
@@ -57,3 +63,6 @@
 ## Fix In Future
 
 ## Bugs && Messages
+BookDAOImpl class - loadEntitiesToListFromResultSet method - NotNull annotation
+BookDAOImplTest class - addAllEntitiesToTheDatabase method - NotNull annotation
+PropertiesUtil class - getProperty method - NotNull annotation
