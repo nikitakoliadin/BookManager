@@ -342,7 +342,37 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public void update(Book book) throws SQLException {
+        log.info("Preparing to execute UPDATE CRUD operation");
 
+        val connection = SessionUtil.openConnection();
+
+        val sql = "UPDATE BOOKS SET NAME = ?, AUTHOR = ?, PRINT_YEAR = ?, IS_READ = ? WHERE ID = ?;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query");
+
+            log.info("Entity to update: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                    book.getId(),
+                    book.getName(),
+                    book.getAuthor(),
+                    book.getPrintYear(),
+                    book.isRead()
+            );
+
+            preparedStatement.setString(1, book.getName());
+            preparedStatement.setString(2, book.getAuthor());
+            preparedStatement.setInt(3, book.getPrintYear());
+            preparedStatement.setBoolean(4, book.isRead());
+            preparedStatement.setInt(5, book.getId());
+            log.info("Preparing sql query was done successful! Preparing to update entity in the database");
+
+            preparedStatement.executeUpdate();
+            log.info("Preparing to update entity in the database was done successful");
+        }
+
+        log.info("Preparing to execute UPDATE CRUD operation was done successful");
     }
 
     /**
