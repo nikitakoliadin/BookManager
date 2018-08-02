@@ -6,6 +6,7 @@ import com.qthegamep.bookmanager.util.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,25 +181,7 @@ public class BookDAOImpl implements BookDAO {
             val resultSet = preparedStatement.executeQuery();
             log.info("Preparing to get entities from the database by name was done successful! Preparing to parse entities");
 
-            while (resultSet.next()) {
-                val book = new Book();
-
-                book.setId(resultSet.getInt("ID"));
-                book.setName(resultSet.getString("NAME"));
-                book.setAuthor(resultSet.getString("AUTHOR"));
-                book.setPrintYear(resultSet.getInt("PRINT_YEAR"));
-                book.setRead(resultSet.getBoolean("IS_READ"));
-
-                books.add(book);
-
-                log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {} - was gotten",
-                        book.getId(),
-                        book.getName(),
-                        book.getAuthor(),
-                        book.getPrintYear(),
-                        book.isRead()
-                );
-            }
+            loadEntitiesToList(books, resultSet);
 
             log.info("Preparing to parse entities was done successful");
         }
@@ -217,7 +200,33 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public List<Book> getByAuthor(String author) throws SQLException {
-        return null;
+        log.info("Preparing to execute READ CRUD operation");
+
+        val books = new ArrayList<Book>();
+
+        val connection = SessionUtil.openConnection();
+
+        val sql = "SELECT * FROM BOOKS WHERE AUTHOR = ?;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query! AUTHOR = {}", author);
+
+            preparedStatement.setString(1, author);
+            log.info("Preparing sql query was done successful! Preparing to get entities from the database by author");
+
+            val resultSet = preparedStatement.executeQuery();
+            log.info("Preparing to get entities from the database by author was done successful! Preparing to parse entities");
+
+            loadEntitiesToList(books, resultSet);
+
+            log.info("Preparing to parse entities was done successful");
+        }
+
+        log.info("Preparing to execute READ CRUD operation was done successful");
+
+        return books;
     }
 
     /**
@@ -297,5 +306,27 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public void removeAll(List<? extends Book> books) throws SQLException {
 
+    }
+
+    private void loadEntitiesToList(ArrayList<? super Book> books, ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            val book = new Book();
+
+            book.setId(resultSet.getInt("ID"));
+            book.setName(resultSet.getString("NAME"));
+            book.setAuthor(resultSet.getString("AUTHOR"));
+            book.setPrintYear(resultSet.getInt("PRINT_YEAR"));
+            book.setRead(resultSet.getBoolean("IS_READ"));
+
+            books.add(book);
+
+            log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {} - was gotten",
+                    book.getId(),
+                    book.getName(),
+                    book.getAuthor(),
+                    book.getPrintYear(),
+                    book.isRead()
+            );
+        }
     }
 }
