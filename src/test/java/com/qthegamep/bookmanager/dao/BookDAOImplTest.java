@@ -417,6 +417,35 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldRemoveAllEntitiesFromTheDatabaseCorrectly() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        bookDAO.removeAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+
+        firstBook.setId(3);
+        secondBook.setId(4);
+
+        addAllEntitiesToTheDatabase(books);
+
+        bookDAO.removeAll(books);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+    }
+
+    @Test
+    public void shouldBeOpenConnectionAfterRemoveAllMethod() throws SQLException {
+        bookDAO.removeAll(books);
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
     public void shouldThrowNullPointerExceptionWhenCallAddMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.add(null)
