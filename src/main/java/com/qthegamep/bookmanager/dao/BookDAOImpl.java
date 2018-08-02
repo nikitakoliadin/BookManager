@@ -309,7 +309,29 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public List<Book> getAll() throws SQLException {
-        return null;
+        log.info("Preparing to execute READ CRUD operation");
+
+        val books = new ArrayList<Book>();
+
+        val connection = SessionUtil.openConnection();
+
+        val sql = "SELECT * FROM BOOKS;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create statement");
+        try (val statement = connection.createStatement()) {
+            log.info("Preparing to create statement was done successful! Preparing to get all entities from the database");
+
+            val resultSet = statement.executeQuery(sql);
+            log.info("Preparing to get all entities from the database by is read was done successful! Preparing to parse entities");
+
+            loadEntitiesToListFromResultSet(books, resultSet);
+            log.info("Preparing to parse entities was done successful");
+        }
+
+        log.info("Preparing to execute READ CRUD operation was done successful");
+
+        return books;
     }
 
     /**
