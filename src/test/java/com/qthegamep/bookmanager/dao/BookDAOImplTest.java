@@ -184,7 +184,7 @@ public class BookDAOImplTest {
     }
 
     @Test
-    public void shouldGetByNameMethodReturnEntitiesListCorrectly() throws SQLException {
+    public void shouldGetByNameMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getByName("test firstBook");
 
         assertThat(books).isNotNull().hasSize(0);
@@ -193,6 +193,35 @@ public class BookDAOImplTest {
     @Test
     public void shouldBeOpenConnectionAfterGetByNameMethod() throws SQLException {
         bookDAO.getByName("test firstBook");
+
+        assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldGetByAuthorEntitiesFromTheDatabaseCorrectly() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        val firstListBooks = bookDAO.getByAuthor("test firstAuthor");
+
+        assertThat(firstListBooks).isNotNull().hasSize(1).contains(firstBook);
+
+        addAllEntitiesToTheDatabase(books);
+
+        val secondListBooks = bookDAO.getByAuthor("test secondAuthor");
+
+        assertThat(secondListBooks).isNotNull().hasSize(2).contains(secondBook);
+    }
+
+    @Test
+    public void shouldGetByAuthorMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
+        val books = bookDAO.getByAuthor("test firstAuthor");
+
+        assertThat(books).isNotNull().hasSize(0);
+    }
+
+    @Test
+    public void shouldBeOpenConnectionAfterGetByAuthorMethod() throws SQLException {
+        bookDAO.getByAuthor("test firstAuthor");
 
         assertThat(connection.isClosed()).isFalse();
     }
