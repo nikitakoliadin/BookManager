@@ -273,7 +273,32 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public List<Book> getByIsRead(boolean isRead) throws SQLException {
-        return null;
+        log.info("Preparing to execute READ CRUD operation");
+
+        val books = new ArrayList<Book>();
+
+        val connection = SessionUtil.openConnection();
+
+        val sql = "SELECT * FROM BOOKS WHERE IS_READ = ?;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query! IS_READ = {}", isRead);
+
+            preparedStatement.setBoolean(1, isRead);
+            log.info("Preparing sql query was done successful! Preparing to get entities from the database by is read");
+
+            val resultSet = preparedStatement.executeQuery();
+            log.info("Preparing to get entities from the database by is read was done successful! Preparing to parse entities");
+
+            loadEntitiesToListFromResultSet(books, resultSet);
+            log.info("Preparing to parse entities was done successful");
+        }
+
+        log.info("Preparing to execute READ CRUD operation was done successful");
+
+        return books;
     }
 
     /**
