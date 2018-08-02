@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -120,10 +121,10 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to create prepared statement was done successful! Preparing sql query");
 
             preparedStatement.setInt(1, id);
-            log.info("Preparing sql query was done successful! Preparing to get entity from the database");
+            log.info("Preparing sql query was done successful! Preparing to get entity from the database by id");
 
             val resultSet = preparedStatement.executeQuery();
-            log.info("Preparing to get entity from the database was done successful! Preparing to parse entity");
+            log.info("Preparing to get entity from the database by id was done successful! Preparing to parse entity");
 
             if (resultSet.next()) {
                 book.setId(resultSet.getInt("ID"));
@@ -160,7 +161,51 @@ public class BookDAOImpl implements BookDAO {
      */
     @Override
     public List<Book> getByName(String name) throws SQLException {
-        return null;
+        log.info("Preparing to execute READ CRUD operation");
+
+        val books = new ArrayList<Book>();
+
+        val connection = SessionUtil.openConnection();
+
+        val sql = "SELECT * FROM BOOKS WHERE NAME = ?;";
+        log.info("SQL query: [{}]", sql);
+
+        log.info("Preparing to create prepared statement");
+        try (val preparedStatement = connection.prepareStatement(sql)) {
+            log.info("Preparing to create prepared statement was done successful! Preparing sql query");
+
+            preparedStatement.setString(1, name);
+            log.info("Preparing sql query was done successful! Preparing to get entity from the database by name");
+
+            val resultSet = preparedStatement.executeQuery();
+            log.info("Preparing to get entity from the database by name was done successful! Preparing to parse entities");
+
+            while (resultSet.next()) {
+                val book = new Book();
+
+                book.setId(resultSet.getInt("ID"));
+                book.setName(resultSet.getString("NAME"));
+                book.setAuthor(resultSet.getString("AUTHOR"));
+                book.setPrintYear(resultSet.getInt("PRINT_YEAR"));
+                book.setRead(resultSet.getBoolean("IS_READ"));
+
+                books.add(book);
+
+                log.info("Entity: ID = {}, NAME = {}, AUTHOR = {}, PRINT_YEAR  = {}, IS_READ = {}",
+                        book.getId(),
+                        book.getName(),
+                        book.getAuthor(),
+                        book.getPrintYear(),
+                        book.isRead()
+                );
+            }
+
+            log.info("Preparing to parse entities was done successful");
+        }
+
+        log.info("Preparing to execute READ CRUD operation was done successful");
+
+        return books;
     }
 
     /**
