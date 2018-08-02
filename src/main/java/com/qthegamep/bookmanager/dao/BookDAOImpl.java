@@ -408,7 +408,7 @@ public class BookDAOImpl implements BookDAO {
                 preparedStatement.setInt(3, book.getPrintYear());
                 preparedStatement.setBoolean(4, book.isRead());
                 preparedStatement.setInt(5, book.getId());
-                log.info("Preparing sql query was done successful! Preparing to update entity in the database");
+                log.info("Preparing sql query to this entity was done successful! Preparing to update entity in the database");
 
                 preparedStatement.executeUpdate();
                 log.info("Preparing to update entity in the database was done successful");
@@ -485,7 +485,7 @@ public class BookDAOImpl implements BookDAO {
                 );
 
                 preparedStatement.setInt(1, book.getId());
-                log.info("Preparing sql query was done successful! Preparing to delete entity from the database");
+                log.info("Preparing sql query to this entity was done successful! Preparing to delete entity from the database");
 
                 preparedStatement.executeUpdate();
                 log.info("Preparing to delete entity from the database was done successful");
