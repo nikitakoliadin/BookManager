@@ -63,5 +63,4 @@
 ## Fix In Future
 
 ## Bugs && Messages
-* BookDAOImpl class - loadEntitiesToListFromResultSet method - NotNull annotation
 * BookDAOImplTest class - addAllEntitiesToTheDatabase method - NotNull annotation
