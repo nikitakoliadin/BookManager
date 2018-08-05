@@ -5,6 +5,7 @@ import com.qthegamep.bookmanager.util.SessionUtil;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -521,7 +522,7 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute DELETE CRUD operation was done successful");
     }
 
-    private void loadEntitiesToListFromResultSet(ArrayList<? super Book> books, ResultSet resultSet) throws SQLException {
+    private void loadEntitiesToListFromResultSet(ArrayList<? super Book> books, @NotNull ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             val book = new Book();
 
