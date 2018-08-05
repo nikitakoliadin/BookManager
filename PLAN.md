@@ -63,4 +63,3 @@
 ## Fix In Future
 
 ## Bugs && Messages
-* BookDAOImplTest class - addAllEntitiesToTheDatabase method - NotNull annotation
