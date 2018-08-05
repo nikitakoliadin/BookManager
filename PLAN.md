@@ -43,6 +43,8 @@
                                 * [BookTest.java](src/test/java/com/qthegamep/bookmanager/entity/BookTest.java)
                             * [exception](src/test/java/com/qthegamep/bookmanager/exception)
                                 * [LoadDBPropertiesExceptionTest.java](src/test/java/com/qthegamep/bookmanager/exception/LoadDBPropertiesExceptionTest.java)
+                            * [service](src/test/java/com/qthegamep/bookmanager/service)
+                                * [BookServiceImplTest.java](src/test/java/com/qthegamep/bookmanager/service/BookServiceImplTest.java)
                             * [testhelper](src/test/java/com/qthegamep/bookmanager/testhelper)
                                 * [rule](src/test/java/com/qthegamep/bookmanager/testhelper/rule)
                                     * [Rules.java](src/test/java/com/qthegamep/bookmanager/testhelper/rule/Rules.java)
