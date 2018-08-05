@@ -5,6 +5,7 @@ import com.qthegamep.bookmanager.exception.LoadDBPropertiesException;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Properties;
 
@@ -44,7 +45,7 @@ public class PropertiesUtil {
         return getProperty("password");
     }
 
-    private String getProperty(String propertyName) {
+    private String getProperty(@NotNull String propertyName) {
         log.info("Preparing to load database {}", propertyName.toUpperCase());
 
         val properties = new Properties();
