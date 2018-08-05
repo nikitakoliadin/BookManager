@@ -93,8 +93,10 @@ public class BookDAOImpl implements BookDAO {
                 log.info("Preparing to add query to the batch was done successful");
             }
 
+            log.info("Preparing to execute batch");
+
             preparedStatement.executeBatch();
-            log.info("Batch was executed successful! Preparing to clear batch");
+            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
 
             preparedStatement.clearBatch();
             log.info("Preparing to clear batch was done successful");
@@ -420,8 +422,10 @@ public class BookDAOImpl implements BookDAO {
                 log.info("Preparing to add query to the batch was done successful");
             }
 
+            log.info("Preparing to execute batch");
+
             preparedStatement.executeBatch();
-            log.info("Batch was executed successful! Preparing to clear batch");
+            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
 
             preparedStatement.clearBatch();
             log.info("Preparing to clear batch was done successful");
@@ -497,11 +501,19 @@ public class BookDAOImpl implements BookDAO {
                 );
 
                 preparedStatement.setInt(1, book.getId());
-                log.info("Preparing sql query to this entity was done successful! Preparing to delete entity from the database");
+                log.info("Preparing sql query to this entity was done successful! Preparing to add query to the batch");
 
-                preparedStatement.executeUpdate();
-                log.info("Preparing to delete entity from the database was done successful");
+                preparedStatement.addBatch();
+                log.info("Preparing to add query to the batch was done successful");
             }
+
+            log.info("Preparing to execute batch");
+
+            preparedStatement.executeBatch();
+            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
+
+            preparedStatement.clearBatch();
+            log.info("Preparing to clear batch was done successful");
 
             log.info("All entities was deleted from the database");
         }
