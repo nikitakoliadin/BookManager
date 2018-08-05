@@ -447,6 +447,27 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkCorrectlyAfterCreatingNewConnection() throws SQLException {
+        bookDAO.add(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1);
+        assertThat(allEntitiesFromTheDatabase).contains(firstBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        bookDAO.add(firstBook);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
+        assertThat(allEntitiesFromTheDatabase).contains(firstBook);
+    }
+
+    @Test
     public void shouldThrowNullPointerExceptionWhenCallAddMethodWithNullParameter() {
         assertThatNullPointerException().isThrownBy(
                 () -> bookDAO.add(null)
