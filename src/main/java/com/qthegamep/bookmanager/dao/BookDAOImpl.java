@@ -59,6 +59,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This method implements adding books entities objects to the database.
+     * It is used a batch for multiple queries.
      *
      * @param books is the list of entities objects that will be added to the database.
      * @throws SQLException of work with the database.
@@ -386,6 +387,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This method implements updating entities in the database.
+     * It is used a batch for multiple queries.
      *
      * @param books is the new entities that will be added to the database instead of the old ones.
      * @throws SQLException of work with the database.
@@ -475,6 +477,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This method implements deleting entities from the database.
+     * It is used a batch for multiple queries.
      *
      * @param books is the entities that will be deleted from the database.
      * @throws SQLException of work with the database.
