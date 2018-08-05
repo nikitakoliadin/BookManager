@@ -5,6 +5,7 @@ import com.qthegamep.bookmanager.testhelper.rule.Rules;
 import com.qthegamep.bookmanager.util.SessionUtil;
 
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import org.junit.*;
 
 import org.junit.rules.ExternalResource;
@@ -508,7 +509,7 @@ public class BookDAOImplTest {
         return bookList;
     }
 
-    private void addAllEntitiesToTheDatabase(List<? extends Book> books) throws SQLException {
+    private void addAllEntitiesToTheDatabase(@NotNull List<? extends Book> books) throws SQLException {
         val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
 
         try (val preparedStatement = connection.prepareStatement(sql)) {
