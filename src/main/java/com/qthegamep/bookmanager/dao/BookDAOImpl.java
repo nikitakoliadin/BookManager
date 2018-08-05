@@ -87,11 +87,17 @@ public class BookDAOImpl implements BookDAO {
                 preparedStatement.setString(2, book.getAuthor());
                 preparedStatement.setInt(3, book.getPrintYear());
                 preparedStatement.setBoolean(4, book.isRead());
-                log.info("Preparing sql query to this entity was done successful! Preparing to add entity to the database");
+                log.info("Preparing sql query to this entity was done successful! Preparing to add entity to the batch");
 
-                preparedStatement.executeUpdate();
-                log.info("Preparing to add entity to the database was done successful");
+                preparedStatement.addBatch();
+                log.info("Preparing to add entity to the batch was done successful");
             }
+
+            preparedStatement.executeBatch();
+            log.info("Batch was executed successful! Preparing to clear batch");
+
+            preparedStatement.clearBatch();
+            log.info("Preparing to clear batch was done successful");
 
             log.info("All entities was added to the database");
         }
