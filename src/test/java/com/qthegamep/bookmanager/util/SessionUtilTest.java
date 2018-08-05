@@ -72,6 +72,18 @@ public class SessionUtilTest {
     }
 
     @Test
+    public void shouldSetAutoCommit() throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
+        assertThat(connection.getAutoCommit()).isFalse();
+    }
+
+    @Test
+    public void shouldAutoCommitBeTrueByDefault() throws SQLException {
+        assertThat(connection.getAutoCommit()).isTrue();
+    }
+
+    @Test
     public void shouldThrowInvocationTargetExceptionWhenCreateObjectWithReflection() {
         assertThatExceptionOfType(InvocationTargetException.class).isThrownBy(() -> {
             val constructor = SessionUtil.class.getDeclaredConstructor();
