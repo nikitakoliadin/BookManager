@@ -24,7 +24,7 @@ public class SessionUtil {
      * This method opens the connection to the database.
      *
      * @return connection to the database.
-     * @throws SQLException that must be processed.
+     * @throws SQLException of work with the database.
      */
     public Connection openConnection() throws SQLException {
         log.info("Preparing to open connection");
@@ -45,7 +45,7 @@ public class SessionUtil {
     /**
      * This method closes the connection to the database if there is open connection or connection isn't closed.
      *
-     * @throws SQLException that must be processed.
+     * @throws SQLException of work with the database.
      */
     public void closeConnection() throws SQLException {
         log.info("Preparing to close connection");
@@ -56,5 +56,18 @@ public class SessionUtil {
         } else {
             log.info("Preparing to close connection was done successful! Connection was not closed because connection was not opened or was closed already");
         }
+    }
+
+    /**
+     * This method set auto commit option of connection. By default it is true.
+     *
+     * @param autoCommit is parameter of set auto commit.
+     * @throws SQLException of work with the database.
+     */
+    public void setAutoCommit(boolean autoCommit) throws SQLException {
+        log.info("Preparing to set auto commit to {}", autoCommit);
+
+        connection.setAutoCommit(autoCommit);
+        log.info("Preparing to set auto commit to {} was done successful", autoCommit);
     }
 }
