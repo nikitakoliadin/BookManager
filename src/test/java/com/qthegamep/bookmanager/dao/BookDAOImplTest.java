@@ -531,6 +531,8 @@ public class BookDAOImplTest {
     }
 
     private void addAllEntitiesToTheDatabase(@NotNull List<? extends Book> books) throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
         val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
 
         try (val preparedStatement = connection.prepareStatement(sql)) {
@@ -540,8 +542,13 @@ public class BookDAOImplTest {
                 preparedStatement.setInt(3, book.getPrintYear());
                 preparedStatement.setBoolean(4, book.isRead());
 
-                preparedStatement.executeUpdate();
+                preparedStatement.addBatch();
             }
+
+            preparedStatement.executeBatch();
+            connection.commit();
         }
+
+        SessionUtil.setAutoCommit(true);
     }
 }
