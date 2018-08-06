@@ -101,7 +101,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public List<Book> getByIsRead(boolean isRead) throws SQLException {
-        return null;
+        log.info("Preparing to get books by is read");
+
+        return bookDAO.getByIsRead(isRead);
     }
 
     /**
