@@ -28,7 +28,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void add(Book book) throws SQLException {
+        log.info("Preparing to add book");
 
+        bookDAO.add(book);
     }
 
     /**
