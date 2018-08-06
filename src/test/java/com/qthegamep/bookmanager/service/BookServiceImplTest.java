@@ -2,6 +2,7 @@ package com.qthegamep.bookmanager.service;
 
 import com.qthegamep.bookmanager.dao.BookDAO;
 import com.qthegamep.bookmanager.dao.BookDAOImpl;
+import com.qthegamep.bookmanager.entity.Book;
 import com.qthegamep.bookmanager.testhelper.rule.Rules;
 import com.qthegamep.bookmanager.util.SessionUtil;
 
@@ -15,8 +16,10 @@ import org.junit.rules.Stopwatch;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookServiceImplTest {
@@ -36,6 +39,11 @@ public class BookServiceImplTest {
     @Mock
     private BookDAO bookDAOMock;
 
+    private Book firstBook;
+    private Book secondBook;
+
+    private List<Book> books;
+
     @Before
     public void setUp() {
         bookService = new BookServiceImpl();
@@ -45,6 +53,24 @@ public class BookServiceImplTest {
 
         ((BookServiceImpl) bookService).setBookDAO(bookDAO);
         ((BookServiceImpl) bookServiceWithMock).setBookDAO(bookDAOMock);
+
+        firstBook = new Book();
+
+        firstBook.setId(1);
+        firstBook.setName("test firstBook");
+        firstBook.setAuthor("test firstAuthor");
+        firstBook.setPrintYear(2000);
+        firstBook.setRead(false);
+
+        secondBook = new Book();
+
+        secondBook.setId(2);
+        secondBook.setName("test secondBook");
+        secondBook.setAuthor("test secondAuthor");
+        secondBook.setPrintYear(2010);
+        secondBook.setRead(true);
+
+        books = List.of(firstBook, secondBook);
     }
 
     @After
@@ -78,5 +104,25 @@ public class BookServiceImplTest {
         ((BookServiceImpl) bookService).setBookDAO(newBookDAO);
 
         assertThat(((BookServiceImpl) bookService).getBookDAO()).isNotNull().isEqualTo(newBookDAO);
+    }
+
+    @Test
+    public void shouldRemoveAllBooksCorrectly() throws SQLException {
+        bookDAO.addAll(books);
+
+        bookService.removeAll(books);
+
+        val allBooks = bookDAO.getAll();
+
+        assertThat(allBooks).isNotNull().isEmpty();
+    }
+
+    @Test
+    public void shouldCallRemoveAllMethodCorrectly() throws SQLException {
+        bookServiceWithMock.removeAll(books);
+
+        verify(bookDAOMock, times(1)).removeAll(books);
+
+        verifyNoMoreInteractions(bookDAOMock);
     }
 }
