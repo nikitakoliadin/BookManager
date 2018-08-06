@@ -107,6 +107,24 @@ public class BookServiceImplTest {
     }
 
     @Test
+    public void shouldGetByNameBooksCorrectly() throws SQLException {
+        bookDAO.addAll(books);
+
+        val allBooks = bookService.getByName("test firstBook");
+
+        assertThat(allBooks).isNotEmpty().contains(firstBook);
+    }
+
+    @Test
+    public void shouldCallGetByNameMethodCorrectly() throws SQLException {
+        bookServiceWithMock.getByName("test firstBook");
+
+        verify(bookDAOMock, times(1)).getByName("test firstBook");
+
+        verifyNoMoreInteractions(bookDAOMock);
+    }
+
+    @Test
     public void shouldGetByAuthorBooksCorrectly() throws SQLException {
         bookDAO.addAll(books);
 
