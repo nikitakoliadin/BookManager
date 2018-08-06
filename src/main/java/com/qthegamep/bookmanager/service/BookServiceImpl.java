@@ -156,6 +156,8 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void removeAll(List<? extends Book> books) throws SQLException {
+        log.info("Preparing to remove all books");
 
+        bookDAO.removeAll(books);
     }
 }
