@@ -8,18 +8,23 @@ cache:
 
 # Customizing The Build - https://docs.travis-ci.com/user/customizing-the-build/
 install:
-- mvn install -Ph2-database -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- if [ "$DESC" = "H2 test with oraclejdk10" ] || [ "$DESC" = "H2 test with openjdk10" ];
+  then mvn install -P h2-database -D skipTests=true -D maven.javadoc.skip=true -B -V;
+  fi
+
 script:
-- mvn test -Ph2-database -B
+- if [ "$DESC" = "H2 test with oraclejdk10" ] || [ "$DESC" = "H2 test with openjdk10" ];
+  then mvn test -P h2-database -B;
+  fi
 
 # Matrix Expansion - https://docs.travis-ci.com/user/build-stages/matrix-expansion/
 matrix:
   fast_finish: true
   include:
   - jdk: oraclejdk10
-    env: DESC="All build with oraclejdk10"
+    env: DESC="H2 test with oraclejdk10"
   - jdk: openjdk10
-    env: DESC="All build with openjdk10"
+    env: DESC="H2 test with openjdk10"
 
 # Codecov - https://github.com/codecov/example-java
 after_success:
@@ -30,5 +35,5 @@ notifications:
   email:
     recipients:
     - qThegamEp@gmail.com
-    on_success: always # default: change
-    on_failure: always # default: always
+    on_success: always
+    on_failure: always

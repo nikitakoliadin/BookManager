@@ -17,7 +17,7 @@ SQL scripts:
 * Populate scripts
     * [Populate script](src/main/resources/db/populateDB.sql)
 
-## Technologies
+## Technologies Information
 | Technology     | Badge |
 |:--------------:|:-----:|
 | License        | [![LICENSE](https://img.shields.io/badge/LICENSE-Apache%202.0-blue.svg)](LICENSE) |
@@ -61,7 +61,7 @@ If you want to use this project:
     * [MySQL](https://dev.mysql.com/)
     * [H2](http://www.h2database.com/html/main.html)
 
-## Resources
+## Resources Information
 * **External Libraries:**
 	* [JetBrains Annotations](https://mvnrepository.com/artifact/org.jetbrains/annotations)
 	* [Lombok](https://mvnrepository.com/artifact/org.projectlombok/lombok)
@@ -75,10 +75,11 @@ If you want to use this project:
     * [MySQL JDBC](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
     * [H2 JDBC](https://mvnrepository.com/artifact/com.h2database/h2)
 * **Plugins:**
-    * [Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
-    * [Assembly Plugin](http://maven.apache.org/plugins/maven-assembly-plugin/)
-    * [Pitest Plugin](http://pitest.org/quickstart/maven/)
+    * [Specifying Resource Directories](https://maven.apache.org/plugins/maven-resources-plugin/examples/resource-directory.html)
+    * [Apache Maven Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
+    * [Apache Maven Assembly Plugin](http://maven.apache.org/plugins/maven-assembly-plugin/)
     * [JaCoCo Plugin](http://www.baeldung.com/jacoco)
+    * [Pitest Plugin](http://pitest.org/quickstart/maven/)
     * [Versions Maven Plugin](http://www.mojohaus.org/versions-maven-plugin/)
 
 ## Contact Information
