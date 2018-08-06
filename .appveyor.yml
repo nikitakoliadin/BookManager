@@ -1,15 +1,14 @@
 # AppVeyor Config - https://www.appveyor.com/docs/build-configuration/
 version: '{build}'
-skip_tags: true
-clone_depth: 30
 
-# Services and databases - https://www.appveyor.com/docs/services-databases/
-services:
-- mysql
+skip_tags: true
+
+clone_depth: 30
 
 # Build Environment - https://www.appveyor.com/docs/build-environment/
 environment:
   JAVA_HOME: C:\Program Files\Java\jdk10
+
 install:
 - ps: |
     Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -22,10 +21,12 @@ install:
     }
 - cmd: SET PATH=C:\maven\apache-maven-3.5.4\bin;%JAVA_HOME%\bin;%PATH%
 - cmd: SET MAVEN_OPTS=-Dhttps.protocols=TLSv1.2
+
 build_script:
-- mvn install -P mysql-database jacoco:report -B
+- mvn install -P h2-database jacoco:report -B
+
 test_script:
-- mvn clean install -P mysql-database jacoco:report -B
+- mvn clean install -P h2-database jacoco:report -B
 
 # Caching Data Between Builds - https://www.appveyor.com/docs/build-cache/
 cache:
