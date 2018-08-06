@@ -8,18 +8,18 @@ cache:
 
 # Customizing The Build - https://docs.travis-ci.com/user/customizing-the-build/
 install:
-- if [ "$DESC" = "H2 test with oraclejdk10" ] || [ "$DESC" = "MySQL test with oraclejdk10" ];
+- if [ "$DESC" = "H2 test with oraclejdk10" ] || [ "$DESC" = "H2 test with openjdk10" ];
   then mvn install -P h2-database -D skipTests=true -D maven.javadoc.skip=true -B -V;
   fi
-- if [ "$DESC" = "H2 test with openjdk10" ] || [ "$DESC" = "MySQL test with openjdk10" ];
+- if [ "$DESC" = "MySQL test with oraclejdk10" ] || [ "$DESC" = "MySQL test with openjdk10" ];
   then mvn install -P mysql-database -D skipTests=true -D maven.javadoc.skip=true -B -V;
   fi
 
 script:
-- if [ "$DESC" = "H2 test with oraclejdk10" ] || [ "$DESC" = "MySQL test with oraclejdk10" ];
+- if [ "$DESC" = "H2 test with oraclejdk10" ] || [ "$DESC" = "H2 test with openjdk10" ];
   then mvn test -P h2-database -B;
   fi
-- if [ "$DESC" = "H2 test with openjdk10" ] || [ "$DESC" = "MySQL test with openjdk10" ];
+- if [ "$DESC" = "MySQL test with oraclejdk10" ] || [ "$DESC" = "MySQL test with openjdk10" ];
   then mvn test -P mysql-database -B;
   fi
 
@@ -29,11 +29,15 @@ matrix:
   include:
   - jdk: oraclejdk10
     env: DESC="H2 test with oraclejdk10"
-  - jdk: oraclejdk10
-    env: DESC="MySQL test with oraclejdk10"
   - jdk: openjdk10
     env: DESC="H2 test with openjdk10"
+  - jdk: oraclejdk10
+    services:
+    - mysql
+    env: DESC="MySQL test with oraclejdk10"
   - jdk: openjdk10
+    services:
+    - mysql
     env: DESC="MySQL test with openjdk10"
 
 # Codecov - https://github.com/codecov/example-java
