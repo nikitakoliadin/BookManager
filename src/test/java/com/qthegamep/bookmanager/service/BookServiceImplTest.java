@@ -107,6 +107,24 @@ public class BookServiceImplTest {
     }
 
     @Test
+    public void shouldAddBookCorrectly() throws SQLException {
+        bookService.add(firstBook);
+
+        val allBooks = bookDAO.getAll();
+
+        assertThat(allBooks).isNotEmpty().contains(firstBook);
+    }
+
+    @Test
+    public void shouldCallAddMethodCorrectly() throws SQLException {
+        bookServiceWithMock.add(firstBook);
+
+        verify(bookDAOMock, times(1)).add(firstBook);
+
+        verifyNoMoreInteractions(bookDAOMock);
+    }
+
+    @Test
     public void shouldAddAllBooksCorrectly() throws SQLException {
         bookService.addAll(books);
 
