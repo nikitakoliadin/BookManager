@@ -19,7 +19,7 @@ import java.util.List;
 public class BookDAOImpl implements BookDAO {
 
     /**
-     * This method implements adding book entity object to the database.
+     * This DAO method implements adding book entity object to the database.
      *
      * @param book is the entity object that will be added to the database.
      * @throws SQLException of work with the database.
@@ -58,7 +58,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements adding list of books entities objects to the database.
+     * This DAO method implements adding list of books entities objects to the database.
      * It is used a batch for multiple queries.
      *
      * @param books is the list of entities objects that will be added to the database.
@@ -110,7 +110,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements returning book entity object from the database by id.
+     * This DAO method implements returning book entity object from the database by id.
      *
      * @param id is the parameter by which the entity object will be returned.
      * @return book entity object.
@@ -164,7 +164,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements returning list of books entities objects from the database by name.
+     * This DAO method implements returning list of books entities objects from the database by name.
      *
      * @param name is the parameter by which the list of entities objects will be returned.
      * @return list of books entities objects.
@@ -201,7 +201,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements returning list of books entities objects from the database by author.
+     * This DAO method implements returning list of books entities objects from the database by author.
      *
      * @param author is the parameter by which the list of entities objects will be returned.
      * @return list of books entities objects.
@@ -238,7 +238,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements returning list of books entities objects from the database by print year.
+     * This DAO method implements returning list of books entities objects from the database by print year.
      *
      * @param printYear is the parameter by which the list of entities objects will be returned.
      * @return list of books entities objects.
@@ -275,7 +275,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements returning list of books entities objects from the database by is read.
+     * This DAO method implements returning list of books entities objects from the database by is read.
      *
      * @param isRead is the parameter by which the list of entities objects will be returned.
      * @return list of books entities objects.
@@ -312,7 +312,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements returning list of all books entities objects from the database.
+     * This DAO method implements returning list of all books entities objects from the database.
      *
      * @return list of books entities objects.
      * @throws SQLException of work with the database.
@@ -345,7 +345,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements updating book entity object in the database.
+     * This DAO method implements updating book entity object in the database.
      *
      * @param book is the new entity that will be added to the database instead of the old one.
      * @throws SQLException of work with the database.
@@ -386,7 +386,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements updating list of books entities objects in the database.
+     * This DAO method implements updating list of books entities objects in the database.
      * It is used a batch for multiple queries.
      *
      * @param books is the new entities that will be added to the database instead of the old ones.
@@ -440,7 +440,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements deleting book entity object from the database.
+     * This DAO method implements deleting book entity object from the database.
      *
      * @param book is the entity that will be deleted from the database.
      * @throws SQLException of work with the database.
@@ -476,7 +476,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     /**
-     * This method implements deleting list of books entities objects from the database.
+     * This DAO method implements deleting list of books entities objects from the database.
      * It is used a batch for multiple queries.
      *
      * @param books is the entities that will be deleted from the database.
