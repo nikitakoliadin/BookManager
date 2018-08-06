@@ -33,7 +33,7 @@
         <pitestPlugin.version>1.4.0</pitestPlugin.version>
         <pitestPlugin.verbose>true</pitestPlugin.verbose>
         <pitestPlugin.threads>2</pitestPlugin.threads>
-        <pitestPlugin.timeoutConstant>60000</pitestPlugin.timeoutConstant>
+        <pitestPlugin.timeoutConstant>300000</pitestPlugin.timeoutConstant>
 
         <!-- Versions plugin -->
         <versionsPlugin.version>2.5</versionsPlugin.version>
@@ -251,6 +251,7 @@
         <profile>
             <id>mysql-database</id>
             <build>
+                <!-- MySQL resources directory -->
                 <resources>
                     <resource>
                         <directory>src/main/resources/db/mysql</directory>
@@ -271,6 +272,7 @@
         <profile>
             <id>h2-database</id>
             <build>
+                <!-- H2 resources directory -->
                 <resources>
                     <resource>
                         <directory>src/main/resources/db/h2</directory>
