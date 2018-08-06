@@ -145,7 +145,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void remove(Book book) throws SQLException {
+        log.info("Preparing to remove book");
 
+        bookDAO.remove(book);
     }
 
     /**
