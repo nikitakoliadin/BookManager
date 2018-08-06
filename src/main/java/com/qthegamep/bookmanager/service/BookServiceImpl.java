@@ -134,7 +134,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void updateAll(List<? extends Book> books) throws SQLException {
+        log.info("Preparing to update all books");
 
+        bookDAO.updateAll(books);
     }
 
     /**
