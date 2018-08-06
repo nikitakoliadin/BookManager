@@ -107,6 +107,29 @@ public class BookServiceImplTest {
     }
 
     @Test
+    public void shouldUpdateAllBooksCorrectly() throws SQLException {
+        bookDAO.addAll(books);
+
+        firstBook.setPrintYear(9999);
+        secondBook.setPrintYear(8888);
+
+        bookService.updateAll(books);
+
+        val allBooks = bookDAO.getAll();
+
+        assertThat(allBooks).isNotEmpty().isEqualTo(books);
+    }
+
+    @Test
+    public void shouldCallUpdateAllMethodCorrectly() throws SQLException {
+        bookServiceWithMock.updateAll(books);
+
+        verify(bookDAOMock, times(1)).updateAll(books);
+
+        verifyNoMoreInteractions(bookDAOMock);
+    }
+
+    @Test
     public void shouldRemoveBookCorrectly() throws SQLException {
         bookDAO.add(firstBook);
 
