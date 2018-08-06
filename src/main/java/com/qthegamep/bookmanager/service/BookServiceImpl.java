@@ -5,12 +5,14 @@ import com.qthegamep.bookmanager.entity.Book;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 /**
  * This class is book service implementation.
  */
+@Slf4j
 public class BookServiceImpl implements BookService {
 
     @Getter
