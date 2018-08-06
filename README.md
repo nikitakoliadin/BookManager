@@ -75,12 +75,12 @@ If you want to use this project:
     * [MySQL JDBC](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
     * [H2 JDBC](https://mvnrepository.com/artifact/com.h2database/h2)
 * **Plugins:**
-    * [Resources Plugin](https://maven.apache.org/plugins/maven-resources-plugin/examples/resource-directory.html)
-    * [Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
-    * [Assembly Plugin](http://maven.apache.org/plugins/maven-assembly-plugin/)
+    * [Specifying Resource Directories](https://maven.apache.org/plugins/maven-resources-plugin/examples/resource-directory.html)
+    * [Apache Maven Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
+    * [Apache Maven Assembly Plugin](http://maven.apache.org/plugins/maven-assembly-plugin/)
     * [JaCoCo Plugin](http://www.baeldung.com/jacoco)
     * [Pitest Plugin](http://pitest.org/quickstart/maven/)
-    * [Versions Plugin](http://www.mojohaus.org/versions-maven-plugin/)
+    * [Versions Maven Plugin](http://www.mojohaus.org/versions-maven-plugin/)
 
 ## Contact Information
 * **Author:** Koliadin Nikita
