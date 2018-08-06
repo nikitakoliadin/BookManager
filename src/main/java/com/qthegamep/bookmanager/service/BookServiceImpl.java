@@ -112,7 +112,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public List<Book> getAll() throws SQLException {
-        return null;
+        log.info("Preparing to get all books");
+
+        return bookDAO.getAll();
     }
 
     /**
