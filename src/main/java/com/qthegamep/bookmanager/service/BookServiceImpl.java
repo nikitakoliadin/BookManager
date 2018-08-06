@@ -89,7 +89,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public List<Book> getByPrintYear(int printYear) throws SQLException {
-        return null;
+        log.info("Preparing to get books by print year");
+
+        return bookDAO.getByPrintYear(printYear);
     }
 
     /**
