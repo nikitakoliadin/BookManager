@@ -80,7 +80,7 @@ If you want to use this project:
     * [Assembly Plugin](http://maven.apache.org/plugins/maven-assembly-plugin/)
     * [JaCoCo Plugin](http://www.baeldung.com/jacoco)
     * [Pitest Plugin](http://pitest.org/quickstart/maven/)
-    * [Versions Maven Plugin](http://www.mojohaus.org/versions-maven-plugin/)
+    * [Versions Plugin](http://www.mojohaus.org/versions-maven-plugin/)
 
 ## Contact Information
 * **Author:** Koliadin Nikita
