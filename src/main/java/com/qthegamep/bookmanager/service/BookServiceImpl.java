@@ -123,7 +123,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void update(Book book) throws SQLException {
+        log.info("Preparing to update book");
 
+        bookDAO.update(book);
     }
 
     /**
