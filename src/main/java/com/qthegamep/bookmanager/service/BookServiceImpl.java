@@ -22,7 +22,6 @@ public class BookServiceImpl implements BookService {
 
     /**
      * This service method implements adding book entity object to the database.
-     * If the entity has id and this entity already exists in the database entity will be updated.
      *
      * @param book is the entity object that will be added to the database.
      * @throws SQLException of work with the database.
@@ -34,7 +33,6 @@ public class BookServiceImpl implements BookService {
 
     /**
      * This service method implements adding list of books entities objects to the database.
-     * If any entity has id and this entity already exists in the database entity will be updated.
      *
      * @param books is the list of entities objects that will be added to the database.
      * @throws SQLException of work with the database.
