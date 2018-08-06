@@ -39,7 +39,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void addAll(List<? extends Book> books) throws SQLException {
+        log.info("Preparing to add all books");
 
+        bookDAO.addAll(books);
     }
 
     /**
@@ -51,7 +53,7 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public Book getById(int id) throws SQLException {
-        log.info("Preparing to get books by id");
+        log.info("Preparing to get book by id");
 
         return bookDAO.getById(id);
     }
