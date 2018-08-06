@@ -53,7 +53,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public Book getById(int id) throws SQLException {
-        return null;
+        log.info("Preparing to get books by id");
+
+        return bookDAO.getById(id);
     }
 
     /**
