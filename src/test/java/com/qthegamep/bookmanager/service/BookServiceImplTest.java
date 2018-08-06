@@ -5,6 +5,7 @@ import com.qthegamep.bookmanager.dao.BookDAOImpl;
 import com.qthegamep.bookmanager.testhelper.rule.Rules;
 import com.qthegamep.bookmanager.util.SessionUtil;
 
+import lombok.val;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -64,9 +65,18 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void shouldGetAndSetBookDAO() {
-        ((BookServiceImpl) bookServiceWithMock).setBookDAO(bookDAO);
+    public void shouldBeEmptyDatabaseBeforeEachTest() throws SQLException {
+        val allBooks = bookDAO.getAll();
 
-        assertThat(((BookServiceImpl) bookServiceWithMock).getBookDAO()).isNotNull().isEqualTo(bookDAO);
+        assertThat(allBooks).isNotNull().isEmpty();
+    }
+
+    @Test
+    public void shouldGetAndSetBookDAO() {
+        val newBookDAO = new BookDAOImpl();
+
+        ((BookServiceImpl) bookService).setBookDAO(newBookDAO);
+
+        assertThat(((BookServiceImpl) bookService).getBookDAO()).isNotNull().isEqualTo(newBookDAO);
     }
 }
