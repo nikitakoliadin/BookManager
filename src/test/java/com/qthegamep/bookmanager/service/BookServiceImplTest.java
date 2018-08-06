@@ -107,6 +107,26 @@ public class BookServiceImplTest {
     }
 
     @Test
+    public void shouldRemoveBookCorrectly() throws SQLException {
+        bookDAO.add(firstBook);
+
+        bookService.remove(firstBook);
+
+        val allBooks = bookDAO.getAll();
+
+        assertThat(allBooks).isEmpty();
+    }
+
+    @Test
+    public void shouldCallRemoveMethodCorrectly() throws SQLException {
+        bookServiceWithMock.remove(firstBook);
+
+        verify(bookDAOMock, times(1)).remove(firstBook);
+
+        verifyNoMoreInteractions(bookDAOMock);
+    }
+
+    @Test
     public void shouldRemoveAllBooksCorrectly() throws SQLException {
         bookDAO.addAll(books);
 
@@ -114,7 +134,7 @@ public class BookServiceImplTest {
 
         val allBooks = bookDAO.getAll();
 
-        assertThat(allBooks).isNotNull().isEmpty();
+        assertThat(allBooks).isEmpty();
     }
 
     @Test
