@@ -65,7 +65,9 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public List<Book> getByName(String name) throws SQLException {
-        return null;
+        log.info("Preparing to get books by name");
+
+        return bookDAO.getByName(name);
     }
 
     /**
