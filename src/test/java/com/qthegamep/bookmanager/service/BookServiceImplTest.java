@@ -107,6 +107,24 @@ public class BookServiceImplTest {
     }
 
     @Test
+    public void shouldGetByPrintYearBooksCorrectly() throws SQLException {
+        bookDAO.addAll(books);
+
+        val allBooks = bookService.getByPrintYear(2000);
+
+        assertThat(allBooks).isNotEmpty().contains(firstBook);
+    }
+
+    @Test
+    public void shouldCallGetByPrintYearMethodCorrectly() throws SQLException {
+        bookServiceWithMock.getByPrintYear(2000);
+
+        verify(bookDAOMock, times(1)).getByPrintYear(2000);
+
+        verifyNoMoreInteractions(bookDAOMock);
+    }
+
+    @Test
     public void shouldGetByIsReadBooksCorrectly() throws SQLException {
         bookDAO.addAll(books);
 
