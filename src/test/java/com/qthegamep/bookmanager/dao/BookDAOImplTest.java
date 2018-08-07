@@ -497,10 +497,44 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldRollbackUpdateAllMethodWhenInputParameterIsIncorrect() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        firstBook.setName("shouldBeUpdated");
+        firstBook.setAuthor("shouldBeUpdated");
+        firstBook.setPrintYear(1111);
+        firstBook.setRead(true);
+
+        secondBook.setName("shouldBeUpdated");
+        secondBook.setAuthor("shouldBeUpdated");
+        secondBook.setPrintYear(1111);
+        secondBook.setRead(false);
+
+        bookDAO.updateAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        bookDAO.update(null);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+    }
+
+    @Test
     public void shouldBeOpenConnectionAfterUpdateAllMethod() throws SQLException {
         bookDAO.updateAll(books);
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitFalseAfterUpdateAllMethod() throws SQLException {
+        bookDAO.updateAll(books);
+
+        assertThat(connection.getAutoCommit()).isFalse();
     }
 
     @Test
@@ -575,13 +609,6 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
         assertThat(allEntitiesFromTheDatabase).contains(firstBook);
-    }
-
-    @Test
-    public void shouldThrowNullPointerExceptionWhenCallUpdateAllMethodWithNullParameter() {
-        assertThatNullPointerException().isThrownBy(
-                () -> bookDAO.updateAll(null)
-        ).withMessage(null);
     }
 
     @Test
