@@ -220,15 +220,15 @@ public class BookDAOImplTest {
     public void shouldGetByNameEntitiesFromTheDatabaseCorrectly() throws SQLException {
         addAllEntitiesToTheDatabase(books);
 
-        val firstListBooks = bookDAO.getByName("test firstBook");
+        var bookListByName = bookDAO.getByName("test firstBook");
 
-        assertThat(firstListBooks).isNotNull().hasSize(1).contains(firstBook);
+        assertThat(bookListByName).isNotNull().hasSize(1).contains(firstBook);
 
         addAllEntitiesToTheDatabase(books);
 
-        val secondListBooks = bookDAO.getByName("test secondBook");
+        bookListByName = bookDAO.getByName("test secondBook");
 
-        assertThat(secondListBooks).isNotNull().hasSize(2).contains(secondBook);
+        assertThat(bookListByName).isNotNull().hasSize(2).contains(secondBook);
     }
 
     @Test
@@ -256,15 +256,15 @@ public class BookDAOImplTest {
     public void shouldGetByAuthorEntitiesFromTheDatabaseCorrectly() throws SQLException {
         addAllEntitiesToTheDatabase(books);
 
-        val firstListBooks = bookDAO.getByAuthor("test firstAuthor");
+        var bookListByAuthor = bookDAO.getByAuthor("test firstAuthor");
 
-        assertThat(firstListBooks).isNotNull().hasSize(1).contains(firstBook);
+        assertThat(bookListByAuthor).isNotNull().hasSize(1).contains(firstBook);
 
         addAllEntitiesToTheDatabase(books);
 
-        val secondListBooks = bookDAO.getByAuthor("test secondAuthor");
+        bookListByAuthor = bookDAO.getByAuthor("test secondAuthor");
 
-        assertThat(secondListBooks).isNotNull().hasSize(2).contains(secondBook);
+        assertThat(bookListByAuthor).isNotNull().hasSize(2).contains(secondBook);
     }
 
     @Test
@@ -279,6 +279,13 @@ public class BookDAOImplTest {
         bookDAO.getByAuthor("test firstAuthor");
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitTrueAfterGetByAuthorMethod() throws SQLException {
+        bookDAO.getByAuthor("test firstAuthor");
+
+        assertThat(connection.getAutoCommit()).isTrue();
     }
 
     @Test
