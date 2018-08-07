@@ -253,6 +253,8 @@ public class BookDAOImpl implements BookDAO {
 
         val connection = SessionUtil.openConnection();
 
+        SessionUtil.setAutoCommit(true);
+
         val sql = "SELECT * FROM BOOKS WHERE AUTHOR = ?;";
         log.info("SQL query: [{}]", sql);
 
@@ -268,6 +270,8 @@ public class BookDAOImpl implements BookDAO {
 
             loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
+
+            log.info("Entities was gotten from the database by author");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
