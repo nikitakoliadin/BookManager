@@ -14,6 +14,7 @@ import org.junit.rules.Stopwatch;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -59,7 +60,7 @@ public class BookDAOImplTest {
         secondBook.setPrintYear(2010);
         secondBook.setRead(true);
 
-        books = List.of(firstBook, secondBook);
+        books = new ArrayList<>(Arrays.asList(firstBook, secondBook));
     }
 
     @After
@@ -197,7 +198,9 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
-        bookDAO.addAll(null);
+        books.add(null);
+
+        bookDAO.addAll(books);
 
         allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
@@ -264,6 +267,8 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldBeAutoCommitTrueAfterGetByIdMethod() throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
         bookDAO.getById(1);
 
         assertThat(connection.getAutoCommit()).isTrue();
@@ -317,6 +322,8 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldBeAutoCommitTrueAfterGetByNameMethod() throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
         bookDAO.getByName("test firstBook");
 
         assertThat(connection.getAutoCommit()).isTrue();
@@ -370,6 +377,8 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldBeAutoCommitTrueAfterGetByAuthorMethod() throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
         bookDAO.getByAuthor("test firstAuthor");
 
         assertThat(connection.getAutoCommit()).isTrue();
@@ -423,6 +432,8 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldBeAutoCommitTrueAfterGetByPrintYearMethod() throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
         bookDAO.getByPrintYear(2000);
 
         assertThat(connection.getAutoCommit()).isTrue();
@@ -476,6 +487,8 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldBeAutoCommitTrueAfterGetByIsReadMethod() throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
         bookDAO.getByIsRead(false);
 
         assertThat(connection.getAutoCommit()).isTrue();
@@ -541,6 +554,8 @@ public class BookDAOImplTest {
 
     @Test
     public void shouldBeAutoCommitTrueAfterGetAllMethod() throws SQLException {
+        SessionUtil.setAutoCommit(false);
+
         bookDAO.getAll();
 
         assertThat(connection.getAutoCommit()).isTrue();
@@ -722,11 +737,15 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
-        bookDAO.updateAll(null);
+        books.add(null);
+
+        firstBook.setName("should not be");
+
+        bookDAO.updateAll(books);
 
         allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).doesNotContain(firstBook).contains(secondBook);
     }
 
     @Test
@@ -866,11 +885,18 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
 
-        bookDAO.removeAll(null);
+        addAllEntitiesToTheDatabase(books);
+
+        books.add(null);
+
+        firstBook.setId(3);
+        secondBook.setId(4);
+
+        bookDAO.removeAll(books);
 
         allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
     }
 
     @Test
