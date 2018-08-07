@@ -722,7 +722,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
-        bookDAO.update(null);
+        bookDAO.updateAll(null);
 
         allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
