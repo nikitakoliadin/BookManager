@@ -8,6 +8,8 @@ In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create
 * Update
 * Delete
 
+In this project implemented only business logic and database logic. For work with this application you should implement your [MVC](https://ru.wikipedia.org/wiki/Model-View-Controller) logic.
+
 Take a look at the project [PLAN](PLAN.md). All database setting in the folder [resources/db](src/main/resources/db).
 
 SQL scripts:
