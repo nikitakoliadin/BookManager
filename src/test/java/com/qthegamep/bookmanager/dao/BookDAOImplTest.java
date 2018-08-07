@@ -90,15 +90,28 @@ public class BookDAOImplTest {
 
         var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1);
-        assertThat(allEntitiesFromTheDatabase).contains(firstBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(firstBook);
 
         bookDAO.add(secondBook);
 
         allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
-        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+    }
+
+    @Test
+    public void shouldRollbackAddMethodWhenInputParameterIsIncorrect() throws SQLException {
+        bookDAO.add(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(firstBook);
+
+        bookDAO.add(null);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(firstBook);
     }
 
     @Test
@@ -106,6 +119,13 @@ public class BookDAOImplTest {
         bookDAO.add(firstBook);
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitFalseAfterAddMethod() throws SQLException {
+        bookDAO.add(firstBook);
+
+        assertThat(connection.getAutoCommit()).isFalse();
     }
 
     @Test
@@ -465,13 +485,6 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
         assertThat(allEntitiesFromTheDatabase).contains(firstBook);
-    }
-
-    @Test
-    public void shouldThrowNullPointerExceptionWhenCallAddMethodWithNullParameter() {
-        assertThatNullPointerException().isThrownBy(
-                () -> bookDAO.add(null)
-        ).withMessage(null);
     }
 
     @Test
