@@ -555,10 +555,34 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldRollbackRemoveMethodWhenInputParameterIsIncorrect() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        bookDAO.remove(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(secondBook);
+
+        bookDAO.remove(null);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(secondBook);
+    }
+
+    @Test
     public void shouldBeOpenConnectionAfterRemoveMethod() throws SQLException {
         bookDAO.remove(firstBook);
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitFalseAfterRemoveMethod() throws SQLException {
+        bookDAO.remove(firstBook);
+
+        assertThat(connection.getAutoCommit()).isFalse();
     }
 
     @Test
@@ -609,13 +633,6 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
         assertThat(allEntitiesFromTheDatabase).contains(firstBook);
-    }
-
-    @Test
-    public void shouldThrowNullPointerExceptionWhenCallRemoveMethodWithNullParameter() {
-        assertThatNullPointerException().isThrownBy(
-                () -> bookDAO.remove(null)
-        ).withMessage(null);
     }
 
     @Test
