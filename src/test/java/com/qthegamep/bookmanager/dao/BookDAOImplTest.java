@@ -430,10 +430,39 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldRollbackUpdateMethodWhenInputParameterIsIncorrect() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        firstBook.setName("shouldBeUpdated");
+        firstBook.setAuthor("shouldBeUpdated");
+        firstBook.setPrintYear(1111);
+        firstBook.setRead(true);
+
+        bookDAO.update(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        bookDAO.update(null);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+    }
+
+    @Test
     public void shouldBeOpenConnectionAfterUpdateMethod() throws SQLException {
         bookDAO.update(firstBook);
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitFalseAfterUpdateMethod() throws SQLException {
+        bookDAO.update(firstBook);
+
+        assertThat(connection.getAutoCommit()).isFalse();
     }
 
     @Test
@@ -546,13 +575,6 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
         assertThat(allEntitiesFromTheDatabase).contains(firstBook);
-    }
-
-    @Test
-    public void shouldThrowNullPointerExceptionWhenCallUpdateMethodWithNullParameter() {
-        assertThatNullPointerException().isThrownBy(
-                () -> bookDAO.update(null)
-        ).withMessage(null);
     }
 
     @Test
