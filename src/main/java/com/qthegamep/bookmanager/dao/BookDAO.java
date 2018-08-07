@@ -112,6 +112,8 @@ public interface BookDAO {
 
     /**
      * This DAO method should delete list of books entities object from the database.
+     * This method should be transactional.
+     * This method should uses a batch for multiple queries.
      *
      * @param books is the entities that will be deleted from the database.
      * @throws SQLException of work with the database.
