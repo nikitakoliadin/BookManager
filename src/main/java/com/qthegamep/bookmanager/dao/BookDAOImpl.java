@@ -20,6 +20,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements adding book entity object to the database.
+     * This method is transactional.
      *
      * @param book is the entity object that will be added to the database.
      * @throws SQLException of work with the database.
@@ -29,6 +30,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute CREATE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
         log.info("SQL query: [{}]", sql);
@@ -51,7 +54,20 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing sql query was done successful! Preparing to add entity to the database");
 
             preparedStatement.executeUpdate();
-            log.info("Preparing to add entity to the database was done successful");
+            log.info("Preparing to add entity to the database was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful");
+
+            log.info("Entity was added to the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute CREATE CRUD operation was done successful");
@@ -59,7 +75,8 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements adding list of books entities objects to the database.
-     * It is used a batch for multiple queries.
+     * This method is transactional.
+     * This method uses a batch for multiple queries.
      *
      * @param books is the list of entities objects that will be added to the database.
      * @throws SQLException of work with the database.
@@ -69,6 +86,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute CREATE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
         log.info("SQL query: [{}]", sql);
@@ -98,12 +117,23 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to execute batch");
 
             preparedStatement.executeBatch();
-            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
+            log.info("Preparing to execute batch was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful! Preparing to clear batch");
 
             preparedStatement.clearBatch();
             log.info("Preparing to clear batch was done successful");
 
             log.info("All entities was added to the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute CREATE CRUD operation was done successful");
@@ -123,6 +153,8 @@ public class BookDAOImpl implements BookDAO {
         val book = new Book();
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(true);
 
         val sql = "SELECT * FROM BOOKS WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -156,6 +188,8 @@ public class BookDAOImpl implements BookDAO {
             );
 
             log.info("Preparing to parse entity was done successful");
+
+            log.info("Entity was gotten from the database by id");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
@@ -178,6 +212,8 @@ public class BookDAOImpl implements BookDAO {
 
         val connection = SessionUtil.openConnection();
 
+        SessionUtil.setAutoCommit(true);
+
         val sql = "SELECT * FROM BOOKS WHERE NAME = ?;";
         log.info("SQL query: [{}]", sql);
 
@@ -193,6 +229,8 @@ public class BookDAOImpl implements BookDAO {
 
             loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
+
+            log.info("Entities was gotten from the database by name");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
@@ -215,6 +253,8 @@ public class BookDAOImpl implements BookDAO {
 
         val connection = SessionUtil.openConnection();
 
+        SessionUtil.setAutoCommit(true);
+
         val sql = "SELECT * FROM BOOKS WHERE AUTHOR = ?;";
         log.info("SQL query: [{}]", sql);
 
@@ -230,6 +270,8 @@ public class BookDAOImpl implements BookDAO {
 
             loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
+
+            log.info("Entities was gotten from the database by author");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
@@ -252,6 +294,8 @@ public class BookDAOImpl implements BookDAO {
 
         val connection = SessionUtil.openConnection();
 
+        SessionUtil.setAutoCommit(true);
+
         val sql = "SELECT * FROM BOOKS WHERE PRINT_YEAR = ?;";
         log.info("SQL query: [{}]", sql);
 
@@ -267,6 +311,8 @@ public class BookDAOImpl implements BookDAO {
 
             loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
+
+            log.info("Entities was gotten from the database by print year");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
@@ -289,6 +335,8 @@ public class BookDAOImpl implements BookDAO {
 
         val connection = SessionUtil.openConnection();
 
+        SessionUtil.setAutoCommit(true);
+
         val sql = "SELECT * FROM BOOKS WHERE IS_READ = ?;";
         log.info("SQL query: [{}]", sql);
 
@@ -304,6 +352,8 @@ public class BookDAOImpl implements BookDAO {
 
             loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
+
+            log.info("Entities was gotten from the database by is read");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
@@ -325,6 +375,8 @@ public class BookDAOImpl implements BookDAO {
 
         val connection = SessionUtil.openConnection();
 
+        SessionUtil.setAutoCommit(true);
+
         val sql = "SELECT * FROM BOOKS;";
         log.info("SQL query: [{}]", sql);
 
@@ -337,6 +389,8 @@ public class BookDAOImpl implements BookDAO {
 
             loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
+
+            log.info("All entities was gotten from the database");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
@@ -346,6 +400,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements updating book entity object in the database.
+     * This method is transactional.
      *
      * @param book is the new entity that will be added to the database instead of the old one.
      * @throws SQLException of work with the database.
@@ -355,6 +410,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute UPDATE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "UPDATE BOOKS SET NAME = ?, AUTHOR = ?, PRINT_YEAR = ?, IS_READ = ? WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -379,7 +436,20 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing sql query was done successful! Preparing to update entity in the database");
 
             preparedStatement.executeUpdate();
-            log.info("Preparing to update entity in the database was done successful");
+            log.info("Preparing to update entity in the database was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful");
+
+            log.info("Entity was updated in the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute UPDATE CRUD operation was done successful");
@@ -387,7 +457,8 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements updating list of books entities objects in the database.
-     * It is used a batch for multiple queries.
+     * This method is transactional.
+     * This method uses a batch for multiple queries.
      *
      * @param books is the new entities that will be added to the database instead of the old ones.
      * @throws SQLException of work with the database.
@@ -397,6 +468,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute UPDATE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "UPDATE BOOKS SET NAME = ?, AUTHOR = ?, PRINT_YEAR = ?, IS_READ = ? WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -428,12 +501,23 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to execute batch");
 
             preparedStatement.executeBatch();
-            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
+            log.info("Preparing to execute batch was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful! Preparing to clear batch");
 
             preparedStatement.clearBatch();
             log.info("Preparing to clear batch was done successful");
 
             log.info("All entities was updated in the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute UPDATE CRUD operation was done successful");
@@ -441,6 +525,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements deleting book entity object from the database.
+     * This method is transactional.
      *
      * @param book is the entity that will be deleted from the database.
      * @throws SQLException of work with the database.
@@ -450,6 +535,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute DELETE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "DELETE FROM BOOKS WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -469,7 +556,20 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing sql query was done successful! Preparing to delete entity from the database");
 
             preparedStatement.executeUpdate();
-            log.info("Preparing to delete entity from the database was done successful");
+            log.info("Preparing to delete entity from the database was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful");
+
+            log.info("Entity was deleted from the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute DELETE CRUD operation was done successful");
@@ -477,7 +577,8 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements deleting list of books entities objects from the database.
-     * It is used a batch for multiple queries.
+     * This method is transactional.
+     * This method uses a batch for multiple queries.
      *
      * @param books is the entities that will be deleted from the database.
      * @throws SQLException of work with the database.
@@ -487,6 +588,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute DELETE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "DELETE FROM BOOKS WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -514,12 +617,23 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to execute batch");
 
             preparedStatement.executeBatch();
-            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
+            log.info("Preparing to execute batch was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful! Preparing to clear batch");
 
             preparedStatement.clearBatch();
             log.info("Preparing to clear batch was done successful");
 
             log.info("All entities was deleted from the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute DELETE CRUD operation was done successful");

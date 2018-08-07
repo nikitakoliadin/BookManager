@@ -12,6 +12,7 @@ public interface BookDAO {
 
     /**
      * This DAO method should add book entity object to the database.
+     * This method should be transactional.
      *
      * @param book is the entity object that will be added to the database.
      * @throws SQLException of work with the database.
@@ -20,6 +21,8 @@ public interface BookDAO {
 
     /**
      * This DAO method should add list of books entities objects to the database.
+     * This method should be transactional.
+     * This method should uses a batch for multiple queries.
      *
      * @param books is the list of entities objects that will be added to the database.
      * @throws SQLException of work with the database.
@@ -81,6 +84,7 @@ public interface BookDAO {
 
     /**
      * This DAO method should update book entity object in the database.
+     * This method should be transactional.
      *
      * @param book is the new entity that will be added to the database instead of the old one.
      * @throws SQLException of work with the database.
@@ -89,6 +93,8 @@ public interface BookDAO {
 
     /**
      * This DAO method should update list of books entities objects in the database.
+     * This method should be transactional.
+     * This method should uses a batch for multiple queries.
      *
      * @param books is the new entities that will be added to the database instead of the old ones.
      * @throws SQLException of work with the database.
@@ -97,6 +103,7 @@ public interface BookDAO {
 
     /**
      * This DAO method should delete book entity object from the database.
+     * This method should be transactional.
      *
      * @param book is the entity that will be deleted from the database.
      * @throws SQLException of work with the database.
@@ -105,6 +112,8 @@ public interface BookDAO {
 
     /**
      * This DAO method should delete list of books entities object from the database.
+     * This method should be transactional.
+     * This method should uses a batch for multiple queries.
      *
      * @param books is the entities that will be deleted from the database.
      * @throws SQLException of work with the database.

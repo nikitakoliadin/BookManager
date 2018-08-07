@@ -31,7 +31,7 @@
 
         <!-- Pitest plugin -->
         <pitestPlugin.version>1.4.0</pitestPlugin.version>
-        <pitestPlugin.verbose>true</pitestPlugin.verbose>
+        <pitestPlugin.verbose>false</pitestPlugin.verbose>
         <pitestPlugin.threads>2</pitestPlugin.threads>
         <pitestPlugin.timeoutConstant>300000</pitestPlugin.timeoutConstant>
 
