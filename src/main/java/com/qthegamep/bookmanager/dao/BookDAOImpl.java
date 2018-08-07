@@ -390,7 +390,7 @@ public class BookDAOImpl implements BookDAO {
             loadEntitiesToListFromResultSet(books, resultSet);
             log.info("Preparing to parse entities was done successful");
 
-            log.info("All Entities was gotten from the database");
+            log.info("All entities was gotten from the database");
         }
 
         log.info("Preparing to execute READ CRUD operation was done successful");
@@ -400,6 +400,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements updating book entity object in the database.
+     * This method is transactional.
      *
      * @param book is the new entity that will be added to the database instead of the old one.
      * @throws SQLException of work with the database.
@@ -409,6 +410,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute UPDATE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "UPDATE BOOKS SET NAME = ?, AUTHOR = ?, PRINT_YEAR = ?, IS_READ = ? WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -433,7 +436,20 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing sql query was done successful! Preparing to update entity in the database");
 
             preparedStatement.executeUpdate();
-            log.info("Preparing to update entity in the database was done successful");
+            log.info("Preparing to update entity in the database was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful");
+
+            log.info("Entity was updated in the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute UPDATE CRUD operation was done successful");
