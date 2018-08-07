@@ -458,7 +458,7 @@ public class BookDAOImpl implements BookDAO {
     /**
      * This DAO method implements updating list of books entities objects in the database.
      * This method is transactional.
-     * It is used a batch for multiple queries.
+     * This method uses a batch for multiple queries.
      *
      * @param books is the new entities that will be added to the database instead of the old ones.
      * @throws SQLException of work with the database.
@@ -577,7 +577,8 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements deleting list of books entities objects from the database.
-     * It is used a batch for multiple queries.
+     * This method is transactional.
+     * This method uses a batch for multiple queries.
      *
      * @param books is the entities that will be deleted from the database.
      * @throws SQLException of work with the database.
@@ -587,6 +588,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute DELETE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "DELETE FROM BOOKS WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -614,12 +617,23 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to execute batch");
 
             preparedStatement.executeBatch();
-            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
+            log.info("Preparing to execute batch was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful! Preparing to clear batch");
 
             preparedStatement.clearBatch();
             log.info("Preparing to clear batch was done successful");
 
             log.info("All entities was deleted from the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute DELETE CRUD operation was done successful");
