@@ -378,8 +378,7 @@ public class BookDAOImplTest {
         thirdBook.setId(3);
         fourthBook.setId(4);
 
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4);
-        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook, thirdBook, fourthBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4).contains(firstBook, secondBook, thirdBook, fourthBook);
     }
 
     @Test
@@ -394,6 +393,13 @@ public class BookDAOImplTest {
         bookDAO.getAll();
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitTrueAfterGetAllMethod() throws SQLException {
+        bookDAO.getAll();
+
+        assertThat(connection.getAutoCommit()).isTrue();
     }
 
     @Test
