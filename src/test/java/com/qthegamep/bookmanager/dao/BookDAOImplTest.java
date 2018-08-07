@@ -328,15 +328,15 @@ public class BookDAOImplTest {
     public void shouldGetByIsReadEntitiesFromTheDatabaseCorrectly() throws SQLException {
         addAllEntitiesToTheDatabase(books);
 
-        val firstListBooks = bookDAO.getByIsRead(false);
+        var bookListByIsRead = bookDAO.getByIsRead(false);
 
-        assertThat(firstListBooks).isNotNull().hasSize(1).contains(firstBook);
+        assertThat(bookListByIsRead).isNotNull().hasSize(1).contains(firstBook);
 
         addAllEntitiesToTheDatabase(books);
 
-        val secondListBooks = bookDAO.getByIsRead(true);
+        bookListByIsRead = bookDAO.getByIsRead(true);
 
-        assertThat(secondListBooks).isNotNull().hasSize(2).contains(secondBook);
+        assertThat(bookListByIsRead).isNotNull().hasSize(2).contains(secondBook);
     }
 
     @Test
@@ -351,6 +351,13 @@ public class BookDAOImplTest {
         bookDAO.getByIsRead(false);
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitTrueAfterGetByIsReadMethod() throws SQLException {
+        bookDAO.getByIsRead(false);
+
+        assertThat(connection.getAutoCommit()).isTrue();
     }
 
     @Test
