@@ -210,6 +210,13 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldBeAutoCommitTrueAfterGetByIdMethod() throws SQLException {
+        bookDAO.getById(1);
+
+        assertThat(connection.getAutoCommit()).isTrue();
+    }
+
+    @Test
     public void shouldGetByNameEntitiesFromTheDatabaseCorrectly() throws SQLException {
         addAllEntitiesToTheDatabase(books);
 
