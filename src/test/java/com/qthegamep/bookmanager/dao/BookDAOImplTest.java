@@ -134,8 +134,7 @@ public class BookDAOImplTest {
 
         var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
-        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
         bookDAO.addAll(books);
 
@@ -147,8 +146,22 @@ public class BookDAOImplTest {
         thirdBook.setId(3);
         fourthBook.setId(4);
 
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4);
-        assertThat(allEntitiesFromTheDatabase).contains(firstBook, secondBook, thirdBook, fourthBook);
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4).contains(firstBook, secondBook, thirdBook, fourthBook);
+    }
+
+    @Test
+    public void shouldRollbackAddAllMethodWhenInputParameterIsIncorrect() throws SQLException {
+        bookDAO.addAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        bookDAO.addAll(null);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
     }
 
     @Test
@@ -156,6 +169,13 @@ public class BookDAOImplTest {
         bookDAO.addAll(books);
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitFalseAfterAddAllMethod() throws SQLException {
+        bookDAO.addAll(books);
+
+        assertThat(connection.getAutoCommit()).isFalse();
     }
 
     @Test
@@ -485,13 +505,6 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
         assertThat(allEntitiesFromTheDatabase).contains(firstBook);
-    }
-
-    @Test
-    public void shouldThrowNullPointerExceptionWhenCallAddAllMethodWithNullParameter() {
-        assertThatNullPointerException().isThrownBy(
-                () -> bookDAO.addAll(null)
-        ).withMessage(null);
     }
 
     @Test
