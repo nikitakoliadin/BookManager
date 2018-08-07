@@ -20,6 +20,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements adding book entity object to the database.
+     * This method is transactional.
      *
      * @param book is the entity object that will be added to the database.
      * @throws SQLException of work with the database.
@@ -29,6 +30,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute CREATE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
         log.info("SQL query: [{}]", sql);
@@ -51,7 +54,18 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing sql query was done successful! Preparing to add entity to the database");
 
             preparedStatement.executeUpdate();
-            log.info("Preparing to add entity to the database was done successful");
+            log.info("Preparing to add entity to the database was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute CREATE CRUD operation was done successful");
