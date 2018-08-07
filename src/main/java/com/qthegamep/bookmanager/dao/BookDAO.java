@@ -93,6 +93,7 @@ public interface BookDAO {
 
     /**
      * This DAO method should update list of books entities objects in the database.
+     * This method should be transactional.
      *
      * @param books is the new entities that will be added to the database instead of the old ones.
      * @throws SQLException of work with the database.
