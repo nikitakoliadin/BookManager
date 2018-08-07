@@ -154,6 +154,8 @@ public class BookDAOImpl implements BookDAO {
 
         val connection = SessionUtil.openConnection();
 
+        SessionUtil.setAutoCommit(true);
+
         val sql = "SELECT * FROM BOOKS WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
 
