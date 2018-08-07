@@ -85,6 +85,25 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkCorrectlyAfterCreatingNewConnection() throws SQLException {
+        bookDAO.add(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(firstBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        bookDAO.add(firstBook);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook);
+    }
+
+    @Test
     public void shouldAddEntityToTheDatabaseCorrectly() throws SQLException {
         bookDAO.add(firstBook);
 
@@ -608,6 +627,23 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldRollbackRemoveAllMethodWhenInputParameterIsIncorrect() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        bookDAO.removeAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+
+        bookDAO.removeAll(null);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+    }
+
+    @Test
     public void shouldBeOpenConnectionAfterRemoveAllMethod() throws SQLException {
         bookDAO.removeAll(books);
 
@@ -615,31 +651,10 @@ public class BookDAOImplTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyAfterCreatingNewConnection() throws SQLException {
-        bookDAO.add(firstBook);
+    public void shouldBeAutoCommitFalseAfterRemoveAllMethod() throws SQLException {
+        bookDAO.removeAll(books);
 
-        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
-
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1);
-        assertThat(allEntitiesFromTheDatabase).contains(firstBook);
-
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
-
-        bookDAO.add(firstBook);
-
-        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
-
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2);
-        assertThat(allEntitiesFromTheDatabase).contains(firstBook);
-    }
-
-    @Test
-    public void shouldThrowNullPointerExceptionWhenCallRemoveAllMethodWithNullParameter() {
-        assertThatNullPointerException().isThrownBy(
-                () -> bookDAO.removeAll(null)
-        ).withMessage(null);
+        assertThat(connection.getAutoCommit()).isFalse();
     }
 
     private List<Book> getAllEntitiesFromTheDatabase() throws SQLException {
