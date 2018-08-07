@@ -103,6 +103,7 @@ public interface BookDAO {
 
     /**
      * This DAO method should delete book entity object from the database.
+     * This method should be transactional.
      *
      * @param book is the entity that will be deleted from the database.
      * @throws SQLException of work with the database.
