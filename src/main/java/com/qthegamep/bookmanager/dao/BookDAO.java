@@ -84,6 +84,7 @@ public interface BookDAO {
 
     /**
      * This DAO method should update book entity object in the database.
+     * This method should be transactional.
      *
      * @param book is the new entity that will be added to the database instead of the old one.
      * @throws SQLException of work with the database.
