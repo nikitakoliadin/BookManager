@@ -58,6 +58,8 @@ public class BookDAOImpl implements BookDAO {
 
             connection.commit();
             log.info("Preparing to commit was done successful");
+
+            log.info("Entity was added to the database");
         } catch (Exception e) {
             log.info("Preparing to rollback");
 
@@ -73,7 +75,8 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements adding list of books entities objects to the database.
-     * It is used a batch for multiple queries.
+     * This method is transactional.
+     * This method uses a batch for multiple queries.
      *
      * @param books is the list of entities objects that will be added to the database.
      * @throws SQLException of work with the database.
@@ -83,6 +86,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute CREATE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "INSERT INTO BOOKS (NAME, AUTHOR, PRINT_YEAR, IS_READ) VALUES (?, ?, ?, ?);";
         log.info("SQL query: [{}]", sql);
@@ -112,12 +117,23 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing to execute batch");
 
             preparedStatement.executeBatch();
-            log.info("Preparing to execute batch was done successful! Preparing to clear batch");
+            log.info("Preparing to execute batch was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful! Preparing to clear batch");
 
             preparedStatement.clearBatch();
             log.info("Preparing to clear batch was done successful");
 
             log.info("All entities was added to the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute CREATE CRUD operation was done successful");
