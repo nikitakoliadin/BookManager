@@ -85,7 +85,22 @@ public class BookDAOImplTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyAfterCreatingNewConnection() throws SQLException {
+    public void shouldAddEntityToTheDatabaseCorrectly() throws SQLException {
+        bookDAO.add(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(firstBook);
+
+        bookDAO.add(secondBook);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+    }
+
+    @Test
+    public void shouldWorkAddMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
         bookDAO.add(firstBook);
 
         var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
@@ -101,21 +116,6 @@ public class BookDAOImplTest {
         allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook);
-    }
-
-    @Test
-    public void shouldAddEntityToTheDatabaseCorrectly() throws SQLException {
-        bookDAO.add(firstBook);
-
-        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
-
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(firstBook);
-
-        bookDAO.add(secondBook);
-
-        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
-
-        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
     }
 
     @Test
@@ -169,6 +169,31 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkAddAllMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        bookDAO.addAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        bookDAO.addAll(books);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        val thirdBook = firstBook;
+        val fourthBook = secondBook;
+
+        thirdBook.setId(3);
+        fourthBook.setId(4);
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4).contains(firstBook, secondBook, thirdBook, fourthBook);
+    }
+
+    @Test
     public void shouldRollbackAddAllMethodWhenInputParameterIsIncorrect() throws SQLException {
         bookDAO.addAll(books);
 
@@ -202,14 +227,29 @@ public class BookDAOImplTest {
         addAllEntitiesToTheDatabase(books);
 
         val firstBook = bookDAO.getById(1);
-        val secondBook = bookDAO.getById(2);
 
         assertThat(firstBook).isEqualTo(this.firstBook);
+
+        val secondBook = bookDAO.getById(2);
+
         assertThat(secondBook).isEqualTo(this.secondBook);
+    }
 
-        val allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+    @Test
+    public void shouldWorkGetByIdMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
 
-        assertThat(allEntitiesFromTheDatabase).hasSize(2).contains(this.firstBook, this.secondBook);
+        val firstBook = bookDAO.getById(1);
+
+        assertThat(firstBook).isEqualTo(this.firstBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        val secondBook = bookDAO.getById(2);
+
+        assertThat(secondBook).isEqualTo(this.secondBook);
     }
 
     @Test
@@ -242,6 +282,25 @@ public class BookDAOImplTest {
         var bookListByName = bookDAO.getByName("test firstBook");
 
         assertThat(bookListByName).isNotNull().hasSize(1).contains(firstBook);
+
+        addAllEntitiesToTheDatabase(books);
+
+        bookListByName = bookDAO.getByName("test secondBook");
+
+        assertThat(bookListByName).isNotNull().hasSize(2).contains(secondBook);
+    }
+
+    @Test
+    public void shouldWorkGetByNameMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        var bookListByName = bookDAO.getByName("test firstBook");
+
+        assertThat(bookListByName).isNotNull().hasSize(1).contains(firstBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
 
         addAllEntitiesToTheDatabase(books);
 
@@ -287,6 +346,25 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkGetByAuthorMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        var bookListByAuthor = bookDAO.getByAuthor("test firstAuthor");
+
+        assertThat(bookListByAuthor).isNotNull().hasSize(1).contains(firstBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        addAllEntitiesToTheDatabase(books);
+
+        bookListByAuthor = bookDAO.getByAuthor("test secondAuthor");
+
+        assertThat(bookListByAuthor).isNotNull().hasSize(2).contains(secondBook);
+    }
+
+    @Test
     public void shouldGetByAuthorMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getByAuthor("test firstAuthor");
 
@@ -323,6 +401,25 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkGetByPrintYearMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        var bookListByPrintYear = bookDAO.getByPrintYear(2000);
+
+        assertThat(bookListByPrintYear).isNotNull().hasSize(1).contains(firstBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        addAllEntitiesToTheDatabase(books);
+
+        bookListByPrintYear = bookDAO.getByPrintYear(2010);
+
+        assertThat(bookListByPrintYear).isNotNull().hasSize(2).contains(secondBook);
+    }
+
+    @Test
     public void shouldGetByPrintYearMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getByPrintYear(2000);
 
@@ -350,6 +447,25 @@ public class BookDAOImplTest {
         var bookListByIsRead = bookDAO.getByIsRead(false);
 
         assertThat(bookListByIsRead).isNotNull().hasSize(1).contains(firstBook);
+
+        addAllEntitiesToTheDatabase(books);
+
+        bookListByIsRead = bookDAO.getByIsRead(true);
+
+        assertThat(bookListByIsRead).isNotNull().hasSize(2).contains(secondBook);
+    }
+
+    @Test
+    public void shouldWorkGetByIsReadMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        var bookListByIsRead = bookDAO.getByIsRead(false);
+
+        assertThat(bookListByIsRead).isNotNull().hasSize(1).contains(firstBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
 
         addAllEntitiesToTheDatabase(books);
 
@@ -401,6 +517,31 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkGetAllMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        var allEntitiesFromTheDatabase = bookDAO.getAll();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        addAllEntitiesToTheDatabase(books);
+
+        allEntitiesFromTheDatabase = bookDAO.getAll();
+
+        val thirdBook = firstBook;
+        val fourthBook = secondBook;
+
+        thirdBook.setId(3);
+        fourthBook.setId(4);
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(4).contains(firstBook, secondBook, thirdBook, fourthBook);
+    }
+
+    @Test
     public void shouldGetAllMethodReturnEmptyEntitiesListCorrectly() throws SQLException {
         val books = bookDAO.getAll();
 
@@ -435,6 +576,37 @@ public class BookDAOImplTest {
         var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        secondBook.setName("shouldBeUpdated");
+        secondBook.setAuthor("shouldBeUpdated");
+        secondBook.setPrintYear(1111);
+        secondBook.setRead(false);
+
+        bookDAO.update(secondBook);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+    }
+
+    @Test
+    public void shouldWorkUpdateMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        firstBook.setName("shouldBeUpdated");
+        firstBook.setAuthor("shouldBeUpdated");
+        firstBook.setPrintYear(1111);
+        firstBook.setRead(true);
+
+        bookDAO.update(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
 
         secondBook.setName("shouldBeUpdated");
         secondBook.setAuthor("shouldBeUpdated");
@@ -516,6 +688,41 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkUpdateAllMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        firstBook.setName("shouldBeUpdated");
+        firstBook.setAuthor("shouldBeUpdated");
+        firstBook.setPrintYear(1111);
+        firstBook.setRead(true);
+
+        secondBook.setName("shouldBeUpdated");
+        secondBook.setAuthor("shouldBeUpdated");
+        secondBook.setPrintYear(1111);
+        secondBook.setRead(false);
+
+        bookDAO.updateAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        firstBook.setRead(false);
+
+        secondBook.setRead(true);
+
+        bookDAO.updateAll(books);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
+    }
+
+    @Test
     public void shouldRollbackUpdateAllMethodWhenInputParameterIsIncorrect() throws SQLException {
         addAllEntitiesToTheDatabase(books);
 
@@ -574,6 +781,27 @@ public class BookDAOImplTest {
     }
 
     @Test
+    public void shouldWorkRemoveMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        bookDAO.remove(firstBook);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(secondBook);
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
+
+        bookDAO.remove(secondBook);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+    }
+
+    @Test
     public void shouldRollbackRemoveMethodWhenInputParameterIsIncorrect() throws SQLException {
         addAllEntitiesToTheDatabase(books);
 
@@ -613,6 +841,32 @@ public class BookDAOImplTest {
         var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+
+        firstBook.setId(3);
+        secondBook.setId(4);
+
+        addAllEntitiesToTheDatabase(books);
+
+        bookDAO.removeAll(books);
+
+        allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+    }
+
+    @Test
+    public void shouldWorkRemoveAllMethodCorrectlyAfterCreatingNewConnection() throws SQLException {
+        addAllEntitiesToTheDatabase(books);
+
+        bookDAO.removeAll(books);
+
+        var allEntitiesFromTheDatabase = getAllEntitiesFromTheDatabase();
+
+        assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
+
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
 
         firstBook.setId(3);
         secondBook.setId(4);
