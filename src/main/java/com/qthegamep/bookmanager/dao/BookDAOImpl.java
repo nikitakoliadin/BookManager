@@ -525,6 +525,7 @@ public class BookDAOImpl implements BookDAO {
 
     /**
      * This DAO method implements deleting book entity object from the database.
+     * This method is transactional.
      *
      * @param book is the entity that will be deleted from the database.
      * @throws SQLException of work with the database.
@@ -534,6 +535,8 @@ public class BookDAOImpl implements BookDAO {
         log.info("Preparing to execute DELETE CRUD operation");
 
         val connection = SessionUtil.openConnection();
+
+        SessionUtil.setAutoCommit(false);
 
         val sql = "DELETE FROM BOOKS WHERE ID = ?;";
         log.info("SQL query: [{}]", sql);
@@ -553,7 +556,20 @@ public class BookDAOImpl implements BookDAO {
             log.info("Preparing sql query was done successful! Preparing to delete entity from the database");
 
             preparedStatement.executeUpdate();
-            log.info("Preparing to delete entity from the database was done successful");
+            log.info("Preparing to delete entity from the database was done successful! Preparing to commit");
+
+            connection.commit();
+            log.info("Preparing to commit was done successful");
+
+            log.info("Entity was deleted from the database");
+        } catch (Exception e) {
+            log.info("Preparing to rollback");
+
+            connection.rollback();
+            log.info("Preparing to rollback was done successful! Exception message: [{}]",
+                    e.getMessage(),
+                    e
+            );
         }
 
         log.info("Preparing to execute DELETE CRUD operation was done successful");
