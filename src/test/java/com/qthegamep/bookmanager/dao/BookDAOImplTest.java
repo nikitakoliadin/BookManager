@@ -292,15 +292,15 @@ public class BookDAOImplTest {
     public void shouldGetByPrintYearEntitiesFromTheDatabaseCorrectly() throws SQLException {
         addAllEntitiesToTheDatabase(books);
 
-        val firstListBooks = bookDAO.getByPrintYear(2000);
+        var bookListByPrintYear = bookDAO.getByPrintYear(2000);
 
-        assertThat(firstListBooks).isNotNull().hasSize(1).contains(firstBook);
+        assertThat(bookListByPrintYear).isNotNull().hasSize(1).contains(firstBook);
 
         addAllEntitiesToTheDatabase(books);
 
-        val secondListBooks = bookDAO.getByPrintYear(2010);
+        bookListByPrintYear = bookDAO.getByPrintYear(2010);
 
-        assertThat(secondListBooks).isNotNull().hasSize(2).contains(secondBook);
+        assertThat(bookListByPrintYear).isNotNull().hasSize(2).contains(secondBook);
     }
 
     @Test
@@ -315,6 +315,13 @@ public class BookDAOImplTest {
         bookDAO.getByPrintYear(2000);
 
         assertThat(connection.isClosed()).isFalse();
+    }
+
+    @Test
+    public void shouldBeAutoCommitTrueAfterGetByPrintYearMethod() throws SQLException {
+        bookDAO.getByPrintYear(2000);
+
+        assertThat(connection.getAutoCommit()).isTrue();
     }
 
     @Test
