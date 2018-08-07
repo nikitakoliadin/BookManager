@@ -107,9 +107,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(firstBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         bookDAO.add(firstBook);
 
@@ -176,9 +174,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         bookDAO.addAll(books);
 
@@ -243,9 +239,7 @@ public class BookDAOImplTest {
 
         assertThat(firstBook).isEqualTo(this.firstBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         val secondBook = bookDAO.getById(2);
 
@@ -298,9 +292,7 @@ public class BookDAOImplTest {
 
         assertThat(bookListByName).isNotNull().hasSize(1).contains(firstBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         addAllEntitiesToTheDatabase(books);
 
@@ -353,9 +345,7 @@ public class BookDAOImplTest {
 
         assertThat(bookListByAuthor).isNotNull().hasSize(1).contains(firstBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         addAllEntitiesToTheDatabase(books);
 
@@ -408,9 +398,7 @@ public class BookDAOImplTest {
 
         assertThat(bookListByPrintYear).isNotNull().hasSize(1).contains(firstBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         addAllEntitiesToTheDatabase(books);
 
@@ -463,9 +451,7 @@ public class BookDAOImplTest {
 
         assertThat(bookListByIsRead).isNotNull().hasSize(1).contains(firstBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         addAllEntitiesToTheDatabase(books);
 
@@ -524,9 +510,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         addAllEntitiesToTheDatabase(books);
 
@@ -604,9 +588,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         secondBook.setName("shouldBeUpdated");
         secondBook.setAuthor("shouldBeUpdated");
@@ -707,9 +689,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(2).contains(firstBook, secondBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         firstBook.setRead(false);
 
@@ -790,9 +770,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().hasSize(1).contains(secondBook);
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         bookDAO.remove(secondBook);
 
@@ -864,9 +842,7 @@ public class BookDAOImplTest {
 
         assertThat(allEntitiesFromTheDatabase).isNotNull().isEmpty();
 
-        SessionUtil.closeConnection();
-
-        connection = SessionUtil.openConnection();
+        openNewConnection();
 
         firstBook.setId(3);
         secondBook.setId(4);
@@ -950,7 +926,11 @@ public class BookDAOImplTest {
             preparedStatement.executeBatch();
             connection.commit();
         }
+    }
 
-        SessionUtil.setAutoCommit(true);
+    private void openNewConnection() throws SQLException {
+        SessionUtil.closeConnection();
+
+        connection = SessionUtil.openConnection();
     }
 }
