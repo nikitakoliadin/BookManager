@@ -22,6 +22,7 @@ public interface BookDAO {
     /**
      * This DAO method should add list of books entities objects to the database.
      * This method should be transactional.
+     * This method should uses a batch for multiple queries.
      *
      * @param books is the list of entities objects that will be added to the database.
      * @throws SQLException of work with the database.
