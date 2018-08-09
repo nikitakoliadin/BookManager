@@ -2,7 +2,7 @@
 
 ## Project Information
 This project is the manager of books. I used MySQL database as main and H2 database for tests.
-In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations:
+In this project implemented standard [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations using [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity) such as:
 * Create
 * Read
 * Update
